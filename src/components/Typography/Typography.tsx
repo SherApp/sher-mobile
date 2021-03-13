@@ -20,7 +20,7 @@ const Typography = ({
       style={[
         styles[variant],
         {
-          color: colors[color] ?? color
+          color: colors[color]
         },
         style
       ]}
