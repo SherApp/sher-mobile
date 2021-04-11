@@ -8,6 +8,7 @@ import { AppearanceProvider } from 'react-native-appearance';
 import { Sacramento_400Regular, useFonts } from '@expo-google-fonts/sacramento';
 import { Oswald_400Regular } from '@expo-google-fonts/oswald';
 import useTheme from './theme/useTheme';
+import Home from './screens/Home';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ function App() {
     <AppearanceProvider>
       <NavigationContainer theme={theme}>
         <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen
             name="Login"
             component={Login}
