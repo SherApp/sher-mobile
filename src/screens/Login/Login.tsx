@@ -12,9 +12,32 @@ import Surface from '../../components/Surface';
 import UserIcon from '../../../assets/svg/UserIcon';
 import PasswordIcon from '../../../assets/svg/PasswordIcon';
 import GlobeIcon from '../../../assets/svg/GlobeIcon';
+import { Formik } from 'formik';
+import { useApiClient } from '../../api/useApiClient';
+import { NavigationProp } from '@react-navigation/native';
 
-const Login = () => {
+interface Values {
+  emailAddress: string;
+  password: string;
+  instanceUrl: string;
+}
+
+interface Props {
+  navigation: NavigationProp<any>;
+}
+
+const Login: React.FC<Props> = ({ navigation }) => {
+  const apiClient = useApiClient();
   const { spacing, colors } = useTheme();
+
+  const handleSubmit = async ({
+    emailAddress,
+    password,
+    instanceUrl
+  }: Values) => {
+    await apiClient.signIn({ emailAddress, password, instanceUrl });
+    navigation.navigate('Home');
+  };
 
   return (
     <ScrollView style={{ backgroundColor: colors.background }}>
@@ -49,30 +72,45 @@ const Login = () => {
           >
             Sign in to continue
           </Typography>
-          <TextFieldGroup>
-            <TextField
-              label="Email"
-              autoCompleteType="email"
-              icon={<UserIcon />}
-            />
-            <TextField
-              label="Password"
-              secureTextEntry
-              autoCompleteType="password"
-              icon={<PasswordIcon />}
-            />
-            <TextField
-              autoCompleteType="off"
-              label="Instance URL"
-              hint="e.g. https://sher.company.com"
-              icon={<GlobeIcon />}
-            />
-          </TextFieldGroup>
-          <Button
-            title="Sign in"
-            onPress={() => {}}
-            style={{ marginTop: spacing(6) }}
-          />
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={{ emailAddress: '', password: '', instanceUrl: '' }}
+          >
+            {({ handleChange, handleSubmit }) => (
+              <View>
+                <TextFieldGroup>
+                  <TextField
+                    label="Email"
+                    textContentType="emailAddress"
+                    autoCompleteType="email"
+                    autoCapitalize="none"
+                    onChangeText={handleChange('emailAddress')}
+                    icon={<UserIcon />}
+                  />
+                  <TextField
+                    label="Password"
+                    secureTextEntry
+                    autoCompleteType="password"
+                    onChangeText={handleChange('password')}
+                    icon={<PasswordIcon />}
+                  />
+                  <TextField
+                    autoCompleteType="off"
+                    label="Instance URL"
+                    hint="e.g. https://sher.company.com"
+                    autoCapitalize="none"
+                    onChangeText={handleChange('instanceUrl')}
+                    icon={<GlobeIcon />}
+                  />
+                </TextFieldGroup>
+                <Button
+                  title="Sign in"
+                  onPress={handleSubmit}
+                  style={{ marginTop: spacing(6) }}
+                />
+              </View>
+            )}
+          </Formik>
         </Surface>
       </View>
     </ScrollView>
