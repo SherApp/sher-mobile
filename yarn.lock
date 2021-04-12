@@ -1868,10 +1868,10 @@
     color "^3.1.3"
     react-native-iphone-x-helper "^1.3.0"
 
-"@sherapp/sher-shared@1.0.3":
+"@sherapp/sher-shared@^1.0.3":
   version "1.0.3"
-  resolved "https://npm.pkg.github.com/download/@sherapp/sher-shared/1.0.3/0d11d6dbe2e82b8483bb326766a115a74078d013ed92408d8ff00d06e17b8e2b#8b7ee2f82e38af1436000aab955da9f6fcf764c5"
-  integrity sha512-ag/06IKnm1QctQynXNaaibJuxWQI696wxKgMQDkdtlnHdZ99dVuX7+Oj86nZy76fHWhviwM87nRl7YUGC1tRqQ==
+  resolved "https://registry.yarnpkg.com/@sherapp/sher-shared/-/sher-shared-1.0.3.tgz#32e7498c191b00048c60fac0eb2d649f230a8943"
+  integrity sha512-ug4ieuwuy6ogrn9tSMDGjCe+EEYDlt8lAD2lGcCFwSXrKzkONGbefPRKjjLyBRvkP9greQPZQI4jwyl//GTMeg==
   dependencies:
     axios "^0.21.1"
 
