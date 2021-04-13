@@ -61,11 +61,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
           </Text>
         </View>
 
-        <Surface
-          style={styles.loginContainer}
-          paddingHorizontal={4}
-          paddingVertical={3}
-        >
+        <Surface style={styles.loginContainer} p={[3, 4]}>
           <Typography
             variant="h1"
             style={[styles.heading, { marginVertical: spacing(3) }]}

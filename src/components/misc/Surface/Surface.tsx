@@ -2,25 +2,38 @@ import React from 'react';
 import { View, ViewProps } from 'react-native';
 import useTheme from '../../../theme/useTheme';
 
+type SpaceValue = [number, number] | number;
+
 interface Props extends ViewProps {
-  paddingHorizontal?: number;
-  paddingVertical?: number;
+  m?: SpaceValue;
+  p?: SpaceValue;
   children?: React.ReactNode;
 }
 
 const Surface = (
-  { paddingHorizontal = 0, paddingVertical = 0, style, ...rest }: Props,
+  { p = 0, m = 0, style, ...rest }: Props,
   ref: React.Ref<View>
 ) => {
-  const { colors, spacing } = useTheme();
+  const { spacing } = useTheme();
+
+  const calcValueWithSpacing = (key: string, value: SpaceValue) => {
+    switch (typeof value) {
+      case 'number':
+        return { [key]: spacing(value as number) };
+      case 'object':
+        return {
+          [`${key}Vertical`]: spacing(value[0]),
+          [`${key}Horizontal`]: spacing(value[1])
+        };
+    }
+  };
 
   return (
     <View
       style={[
         {
-          backgroundColor: colors.background,
-          paddingHorizontal: spacing(paddingHorizontal),
-          paddingVertical: spacing(paddingVertical)
+          ...calcValueWithSpacing('margin', m),
+          ...calcValueWithSpacing('padding', p)
         },
         style
       ]}

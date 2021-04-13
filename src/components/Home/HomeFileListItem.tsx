@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import UploadedFileIcon from '../../../assets/svg/UploadedFileIcon';
 import Typography from '../misc/Typography';
 import useTheme from '../../theme/useTheme';
+import Surface from '../misc/Surface';
 
 interface Props {
   name: string;
@@ -14,7 +15,7 @@ const HomeFileListItem = ({ name, size }: Props) => {
   const { spacing } = useTheme();
 
   return (
-    <View style={[styles.container, { marginVertical: spacing(1) }]}>
+    <Surface m={[1, 0]} style={styles.container}>
       <View style={styles.iconContainer}>
         <UploadedFileIcon />
       </View>
@@ -22,7 +23,7 @@ const HomeFileListItem = ({ name, size }: Props) => {
         <Typography>{name}</Typography>
         <Typography color="textSecondary">{fileSize(size)}</Typography>
       </View>
-    </View>
+    </Surface>
   );
 };
 
