@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, ViewProps } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, View, ViewProps } from 'react-native';
 import useTheme from '../../../theme/useTheme';
 
 type SpaceValue = [number, number] | number;
@@ -8,13 +8,15 @@ interface Props extends ViewProps {
   m?: SpaceValue;
   p?: SpaceValue;
   children?: React.ReactNode;
+  elevated?: boolean;
 }
 
 const Surface = (
-  { p = 0, m = 0, style, ...rest }: Props,
+  { p = 0, m = 0, style, elevated, ...rest }: Props,
   ref: React.Ref<View>
 ) => {
-  const { spacing } = useTheme();
+  const { spacing, colors } = useTheme();
+  const shadowAnim = useRef(new Animated.Value(elevated ? 3 : 0)).current;
 
   const calcValueWithSpacing = (key: string, value: SpaceValue) => {
     switch (typeof value) {
@@ -28,12 +30,22 @@ const Surface = (
     }
   };
 
+  useEffect(() => {
+    Animated.timing(shadowAnim, {
+      toValue: elevated ? 3 : 0,
+      duration: 100,
+      useNativeDriver: false
+    }).start();
+  }, [elevated]);
+
   return (
-    <View
+    <Animated.View
       style={[
         {
           ...calcValueWithSpacing('margin', m),
-          ...calcValueWithSpacing('padding', p)
+          ...calcValueWithSpacing('padding', p),
+          backgroundColor: colors.background,
+          elevation: shadowAnim
         },
         style
       ]}
