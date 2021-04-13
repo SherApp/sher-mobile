@@ -5,6 +5,7 @@ const darkTheme: AppTheme = {
   colors: {
     primary: '#EC38BC',
     text: 'rgba(255, 255, 255, 0.8)',
+    textSecondary: '#1F2937',
     button: 'white',
     background: '#111827',
     border: '#1F2937',
@@ -22,6 +23,7 @@ const defaultTheme: AppTheme = {
   colors: {
     primary: '#EC38BC',
     text: '#374151',
+    textSecondary: 'rgba(0, 0, 0, 0.26)',
     button: 'white',
     background: 'white',
     border: '#e5e7eb',
