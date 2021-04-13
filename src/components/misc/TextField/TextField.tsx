@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 import Typography from '../Typography';
-import useTheme from '../../theme/useTheme';
+import useTheme from '../../../theme/useTheme';
 
 interface Props extends TextInputProps {
   label?: string;

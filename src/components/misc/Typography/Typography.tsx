@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
-import useTheme from '../../theme/useTheme';
+import useTheme from '../../../theme/useTheme';
 
 interface Props {
-  color?: 'text' | 'primary' | 'button' | 'border';
+  color?: 'text' | 'textSecondary' | 'primary' | 'button' | 'border';
   variant?: 'h1' | 'body' | 'caption';
   style?: StyleProp<TextStyle>;
 }

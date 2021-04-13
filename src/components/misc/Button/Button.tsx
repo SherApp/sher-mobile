@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Typography from '../Typography';
-import useTheme from '../../theme/useTheme';
+import useTheme from '../../../theme/useTheme';
 
 interface Props {
   title: string;
