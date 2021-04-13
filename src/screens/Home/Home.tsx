@@ -5,6 +5,7 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import HomeFileListItem from '../../components/Home/HomeFileListItem';
 import useTheme from '../../theme/useTheme';
 import OutlinedTextField from '../../components/misc/TextField/OutlinedTextField';
+import { StatusBar } from 'expo-status-bar';
 
 const Home = () => {
   const [files, setFiles] = useState<UserFile[]>();
@@ -18,9 +19,10 @@ const Home = () => {
 
   return (
     <View style={[styles.container, { marginHorizontal: spacing(2) }]}>
+      <StatusBar translucent backgroundColor="transparent" />
       <OutlinedTextField
         placeholder="Search"
-        style={{ marginVertical: spacing(2) }}
+        style={{ marginBottom: spacing(2) }}
       />
       <FlatList
         data={files}

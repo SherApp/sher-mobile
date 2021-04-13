@@ -9,6 +9,7 @@ import { Sacramento_400Regular, useFonts } from '@expo-google-fonts/sacramento';
 import { Oswald_400Regular } from '@expo-google-fonts/oswald';
 import useTheme from './theme/useTheme';
 import Home from './screens/Home';
+import { HeaderTitle } from './components/Header';
 
 const Stack = createStackNavigator();
 
@@ -26,12 +27,26 @@ function App() {
   return (
     <AppearanceProvider>
       <NavigationContainer theme={theme}>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
+        <Stack.Navigator
+          screenOptions={{ headerTitle: (props) => <HeaderTitle {...props} /> }}
+        >
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              title: 'My files',
+              headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0
+              }
+            }}
+          />
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{ headerShown: false }}
+            options={{
+              headerShown: false
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
