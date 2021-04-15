@@ -1,20 +1,12 @@
 import React from 'react';
-import Svg, {
-  Defs,
-  LinearGradient,
-  Path,
-  Stop,
-  SvgProps
-} from 'react-native-svg';
+import Svg, { Defs, Path, SvgProps } from 'react-native-svg';
+import PrimarySvgGradientDefinition from './PrimarySvgGradientDefinition';
 
 const GlobeIcon = (props: SvgProps) => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <Defs>
-        <LinearGradient id="a" x1="0" y1="0" x2="1" y2="0">
-          <Stop offset="0" stopColor="#000092" />
-          <Stop offset="1" stopColor="#FF00F3" />
-        </LinearGradient>
+        <PrimarySvgGradientDefinition />
       </Defs>
       <Path
         fill="url(#a)"
