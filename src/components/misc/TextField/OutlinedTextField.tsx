@@ -13,6 +13,7 @@ const OutlinedTextField = ({ placeholder, style, ...rest }: Props) => {
     <TextInput
       style={[
         {
+          color: colors['text'],
           backgroundColor: colors['border'],
           paddingHorizontal: spacing(2),
           paddingVertical: spacing(1)
@@ -21,6 +22,7 @@ const OutlinedTextField = ({ placeholder, style, ...rest }: Props) => {
         style
       ]}
       placeholder={placeholder}
+      placeholderTextColor={colors['textSecondary']}
       {...rest}
     />
   );

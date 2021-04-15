@@ -65,7 +65,7 @@ const TextField = (
         <View style={styles.iconContainer}>{icon}</View>
       </View>
       <Animated.View style={[styles.border, { backgroundColor: color }]} />
-      <Typography color="border" variant="body">
+      <Typography color="textSecondary" variant="body">
         {hint}
       </Typography>
     </View>

@@ -5,11 +5,11 @@ const darkTheme: AppTheme = {
   colors: {
     primary: '#EC38BC',
     text: 'rgba(255, 255, 255, 0.8)',
-    textSecondary: '#1F2937',
+    textSecondary: 'rgba(255, 255, 255, 0.6)',
     button: 'white',
-    background: '#111827',
+    background: '#000000',
     border: '#1F2937',
-    card: '#111827', // TODO: Change this
+    card: '#000000', // TODO: Change this
     notification: '#1F2937'
   },
   gradients: {
