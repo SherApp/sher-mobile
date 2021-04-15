@@ -9,10 +9,11 @@ interface Props extends ViewProps {
   p?: SpaceValue;
   children?: React.ReactNode;
   elevated?: boolean;
+  card?: boolean;
 }
 
 const Surface = (
-  { p = 0, m = 0, style, elevated, ...rest }: Props,
+  { p = 0, m = 0, style, elevated, card, ...rest }: Props,
   ref: React.Ref<View>
 ) => {
   const { spacing, colors } = useTheme();
@@ -44,7 +45,7 @@ const Surface = (
         {
           ...calcValueWithSpacing('margin', m),
           ...calcValueWithSpacing('padding', p),
-          backgroundColor: colors.background,
+          backgroundColor: card ? colors.card : colors.background,
           elevation: shadowAnim
         },
         style

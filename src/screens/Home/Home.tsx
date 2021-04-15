@@ -13,6 +13,7 @@ import useTheme from '../../theme/useTheme';
 import OutlinedTextField from '../../components/misc/TextField/OutlinedTextField';
 import { StatusBar } from 'expo-status-bar';
 import Surface from '../../components/misc/Surface';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const SHOW_SHADOW_MIN_OFFSET = 20;
 
@@ -25,7 +26,7 @@ const Home = () => {
     apiClient.getFiles().then((files) => setFiles(files));
   }, [apiClient]);
 
-  const { spacing } = useTheme();
+  const { spacing, gradients } = useTheme();
 
   const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     setShowShadow(e.nativeEvent.contentOffset.y >= SHOW_SHADOW_MIN_OFFSET);
@@ -34,11 +35,21 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
-      <Surface p={[0, 2]} elevated={showShadow}>
-        <OutlinedTextField
-          placeholder="Search"
-          style={{ marginBottom: spacing(2) }}
-        />
+      <Surface card elevated={showShadow}>
+        <Surface card p={[0, 2]}>
+          <OutlinedTextField
+            placeholder="Search"
+            style={{ marginBottom: spacing(2) }}
+          />
+        </Surface>
+        <View style={{ width: '100%', height: 2 }}>
+          <LinearGradient
+            colors={[gradients.primary[0], gradients.primary[1]]}
+            start={[0, 0]}
+            end={[1, 0]}
+            style={{ flex: 1 }}
+          />
+        </View>
       </Surface>
       <FlatList
         data={files}

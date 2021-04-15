@@ -4,12 +4,12 @@ const darkTheme: AppTheme = {
   dark: true,
   colors: {
     primary: '#EC38BC',
-    text: 'rgba(255, 255, 255, 0.8)',
-    textSecondary: 'rgba(255, 255, 255, 0.6)',
+    text: '#F3F4F6',
+    textSecondary: '#9CA3AF',
     button: 'white',
     background: '#000000',
     border: '#1F2937',
-    card: '#000000', // TODO: Change this
+    card: '#111827',
     notification: '#1F2937'
   },
   gradients: {
