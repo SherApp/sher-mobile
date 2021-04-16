@@ -7,7 +7,7 @@ export const useApiClient = () => {
   return useMemo(
     () =>
       new ApiClient(() => {
-        navigation.navigate('Login');
+        navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
       }),
     [navigation]
   );
