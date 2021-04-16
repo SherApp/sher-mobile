@@ -2,9 +2,8 @@ import { config } from '../utils/config';
 import axios, { AxiosInstance } from 'axios';
 import { getSavedRefreshToken, saveTokens } from './apiClientUtils';
 import { authTokenInterceptor } from './authTokenInterceptor';
-import { UserFile } from '@sherapp/sher-shared/browseFiles';
+import { UserFile, refreshTokenInterceptor } from '@sherapp/sher-shared';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { refreshTokenInterceptor } from '@sherapp/sher-shared/auth';
 
 interface SignInRequest {
   emailAddress: string;
