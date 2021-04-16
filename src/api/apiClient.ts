@@ -21,8 +21,13 @@ type AuthRequiredCallback = () => void;
 
 const API_BASE_URL_STORAGE_KEY: string = 'API_BASE_URL';
 
+export interface EnhancedFile extends UserFile {
+  url: string;
+}
+
 export class ApiClient {
   private _axiosClient: AxiosInstance | null = null;
+  private filesUrl: string | null = null;
   private readonly handleAuthRequired: AuthRequiredCallback;
 
   constructor(onAuthRequired: AuthRequiredCallback) {
@@ -30,8 +35,7 @@ export class ApiClient {
   }
 
   public async signIn({ instanceUrl, ...rest }: SignInRequest) {
-    const baseUrl = new URL('/api', instanceUrl).href;
-    await AsyncStorage.setItem(API_BASE_URL_STORAGE_KEY, baseUrl);
+    await AsyncStorage.setItem(API_BASE_URL_STORAGE_KEY, instanceUrl);
 
     const client = await this.client();
     const { data } = await client.post<AuthenticationResponse>(
@@ -44,7 +48,6 @@ export class ApiClient {
       }
     );
 
-    await AsyncStorage.setItem(API_BASE_URL_STORAGE_KEY, baseUrl);
     await saveTokens(data.jwtToken, data.refreshToken);
   }
 
@@ -61,12 +64,19 @@ export class ApiClient {
     await saveTokens(data.jwtToken, data.refreshToken);
   }
 
-  public async getFiles() {
+  public async getFiles(): Promise<EnhancedFile[]> {
     const client = await this.client();
     const { data } = await client.get<UserFile[]>(
       config.api.endpoints.fileUpload
     );
-    return data;
+
+    return data.map((f) => ({ ...f, url: this.getFileUrl(f) ?? '' }));
+  }
+
+  public getFileUrl({ id, fileName }: Pick<UserFile, 'id' | 'fileName'>) {
+    if (this.filesUrl) {
+      return new URL(`${id}/${fileName}`, this.filesUrl).href;
+    }
   }
 
   private async installInterceptors(client: AxiosInstance) {
@@ -90,12 +100,13 @@ export class ApiClient {
     const baseUrl = await AsyncStorage.getItem(API_BASE_URL_STORAGE_KEY);
 
     this._axiosClient = axios.create({
-      baseURL: baseUrl ?? undefined
+      baseURL: baseUrl ? new URL('/api', baseUrl).href : undefined
     });
 
     if (!baseUrl) {
       this.handleAuthRequired();
     } else {
+      this.filesUrl = new URL('/u', baseUrl).href;
       await this.installInterceptors(this._axiosClient);
     }
 

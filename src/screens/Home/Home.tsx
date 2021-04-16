@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { UserFile } from '@sherapp/sher-shared/browseFiles';
 import { useApiClient } from '../../api/useApiClient';
 import {
   FlatList,
@@ -14,11 +13,12 @@ import OutlinedTextField from '../../components/misc/TextField/OutlinedTextField
 import { StatusBar } from 'expo-status-bar';
 import Surface from '../../components/misc/Surface';
 import { LinearGradient } from 'expo-linear-gradient';
+import { EnhancedFile } from '../../api/apiClient';
 
 const SHOW_SHADOW_MIN_OFFSET = 20;
 
 const Home = () => {
-  const [files, setFiles] = useState<UserFile[]>();
+  const [files, setFiles] = useState<EnhancedFile[]>();
   const [showShadow, setShowShadow] = useState(false);
   const apiClient = useApiClient();
 
@@ -54,7 +54,11 @@ const Home = () => {
       <FlatList
         data={files}
         renderItem={({ item }) => (
-          <HomeFileListItem name={item.fileName} size={item.length} />
+          <HomeFileListItem
+            name={item.fileName}
+            size={item.length}
+            link={item.url}
+          />
         )}
         style={{ paddingHorizontal: spacing(2) }}
         onScroll={handleScroll}
