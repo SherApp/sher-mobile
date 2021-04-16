@@ -3,7 +3,7 @@ import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
 import useTheme from '../../../theme/useTheme';
 
 interface Props {
-  color?: 'text' | 'textSecondary' | 'primary' | 'button' | 'border';
+  color?: 'text' | 'textSecondary' | 'primary' | 'button' | 'border' | 'error';
   variant?: 'h1' | 'body' | 'caption';
   style?: StyleProp<TextStyle>;
 }

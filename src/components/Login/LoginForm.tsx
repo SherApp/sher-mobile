@@ -10,6 +10,22 @@ import Button from '../misc/Button';
 import React from 'react';
 import useTheme from '../../theme/useTheme';
 import Surface from '../misc/Surface';
+import * as yup from 'yup';
+
+const loginSchema = yup.object().shape({
+  emailAddress: yup
+    .string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(6, 'Password is too short')
+    .required('Password is required'),
+  instanceUrl: yup
+    .string()
+    .url('Invalid URL')
+    .required('Instance URL is required')
+});
 
 export interface LoginValues {
   emailAddress: string;
@@ -35,12 +51,15 @@ const LoginForm = ({ onSubmit }: Props) => {
       <Formik
         onSubmit={onSubmit}
         initialValues={{ emailAddress: '', password: '', instanceUrl: '' }}
+        validationSchema={loginSchema}
+        validateOnChange={false}
       >
-        {({ handleChange, handleSubmit }) => (
+        {({ handleChange, handleSubmit, errors, setFieldTouched }) => (
           <View>
             <TextFieldGroup>
               <TextField
                 label="Email"
+                error={errors.emailAddress}
                 textContentType="emailAddress"
                 autoCompleteType="email"
                 autoCapitalize="none"
@@ -49,6 +68,7 @@ const LoginForm = ({ onSubmit }: Props) => {
               />
               <TextField
                 label="Password"
+                error={errors.password}
                 secureTextEntry
                 autoCompleteType="password"
                 onChangeText={handleChange('password')}
@@ -57,10 +77,12 @@ const LoginForm = ({ onSubmit }: Props) => {
               <TextField
                 autoCompleteType="off"
                 label="Instance URL"
-                hint="e.g. https://sher.company.com"
+                error={errors.instanceUrl}
+                placeholder="https://sher.company.com"
                 autoCapitalize="none"
                 onChangeText={handleChange('instanceUrl')}
                 icon={<GlobeIcon />}
+                onBlur={() => setFieldTouched('instanceUrl')}
               />
             </TextFieldGroup>
             <Button

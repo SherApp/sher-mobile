@@ -11,12 +11,12 @@ import useTheme from '../../../theme/useTheme';
 
 interface Props extends TextInputProps {
   label?: string;
-  hint?: string;
+  error?: string;
   icon?: React.ReactNode;
 }
 
 const TextField = (
-  { label, hint, icon, ...rest }: Props,
+  { label, icon, error, ...rest }: Props,
   ref: Ref<TextInput>
 ) => {
   const [focus, setFocus] = useState(false);
@@ -55,6 +55,7 @@ const TextField = (
           ref={ref}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          placeholderTextColor={colors.textSecondary}
           style={{
             color: colors.text,
             flexGrow: 1,
@@ -65,8 +66,8 @@ const TextField = (
         <View style={styles.iconContainer}>{icon}</View>
       </View>
       <Animated.View style={[styles.border, { backgroundColor: color }]} />
-      <Typography color="textSecondary" variant="body">
-        {hint}
+      <Typography color="error" variant="body">
+        {error}
       </Typography>
     </View>
   );

@@ -10,7 +10,8 @@ const darkTheme: AppTheme = {
     background: '#000000',
     border: '#1F2937',
     card: '#111827',
-    notification: '#1F2937'
+    notification: '#1F2937',
+    error: '#EF4444'
   },
   gradients: {
     primary: ['#8A0CE1', '#EC38BC']
@@ -28,7 +29,8 @@ const defaultTheme: AppTheme = {
     background: 'white',
     border: '#e5e7eb',
     card: 'white',
-    notification: 'white'
+    notification: 'white',
+    error: '#EF4444'
   },
   gradients: {
     primary: ['#8A0CE1', '#EC38BC']
