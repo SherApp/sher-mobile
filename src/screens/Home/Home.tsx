@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useApiClient } from '../../api/useApiClient';
 import {
   FlatList,
@@ -18,13 +18,25 @@ import { EnhancedFile } from '../../api/apiClient';
 const SHOW_SHADOW_MIN_OFFSET = 20;
 
 const Home = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const [files, setFiles] = useState<EnhancedFile[]>();
   const [showShadow, setShowShadow] = useState(false);
   const apiClient = useApiClient();
 
+  const refreshFiles = useCallback(async () => {
+    setRefreshing(true);
+
+    try {
+      const files = await apiClient.getFiles();
+      setFiles(files);
+    } finally {
+      setRefreshing(false);
+    }
+  }, []);
+
   useEffect(() => {
-    apiClient.getFiles().then((files) => setFiles(files));
-  }, [apiClient]);
+    refreshFiles();
+  }, [refreshFiles]);
 
   const { spacing, gradients } = useTheme();
 
@@ -62,6 +74,8 @@ const Home = () => {
         )}
         style={{ paddingHorizontal: spacing(2) }}
         onScroll={handleScroll}
+        onRefresh={refreshFiles}
+        refreshing={refreshing}
         scrollEventThrottle={100}
       />
     </View>
