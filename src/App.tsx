@@ -27,7 +27,9 @@ function App() {
 
   return (
     <AppearanceProvider>
-      <MenuProvider>
+      <MenuProvider
+        customStyles={{ backdrop: { backgroundColor: 'black', opacity: 0.5 } }}
+      >
         <NavigationContainer theme={theme}>
           <Stack.Navigator
             screenOptions={{
