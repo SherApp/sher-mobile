@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApiClient } from '../../api/useApiClient';
 import {
   FlatList,
@@ -19,24 +19,34 @@ const SHOW_SHADOW_MIN_OFFSET = 20;
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>();
   const [files, setFiles] = useState<EnhancedFile[]>();
   const [showShadow, setShowShadow] = useState(false);
   const apiClient = useApiClient();
 
-  const refreshFiles = useCallback(async () => {
+  const loadFiles = async (query?: string) => {
+    const criteria = query ? { requiredFileNamePart: query } : undefined;
+    const files = await apiClient.getFiles(criteria);
+    setFiles(files);
+  };
+
+  const refreshFiles = async () => {
     setRefreshing(true);
 
     try {
-      const files = await apiClient.getFiles();
-      setFiles(files);
+      await loadFiles();
     } finally {
       setRefreshing(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    refreshFiles();
-  }, [refreshFiles]);
+    loadFiles(searchQuery);
+  }, [searchQuery]);
+
+  const handleSearchChange = (text: string) => {
+    setSearchQuery(text);
+  };
 
   const { spacing, gradients } = useTheme();
 
@@ -52,6 +62,8 @@ const Home = () => {
           <OutlinedTextField
             placeholder="Search"
             style={{ marginBottom: spacing(2) }}
+            value={searchQuery}
+            onChangeText={handleSearchChange}
           />
         </Surface>
         <View style={{ width: '100%', height: 2 }}>
@@ -74,7 +86,9 @@ const Home = () => {
         )}
         style={{ paddingHorizontal: spacing(2) }}
         onScroll={handleScroll}
-        onRefresh={refreshFiles}
+        onRefresh={
+          !searchQuery || searchQuery === '' ? refreshFiles : undefined
+        }
         refreshing={refreshing}
         scrollEventThrottle={100}
       />

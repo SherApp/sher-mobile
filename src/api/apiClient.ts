@@ -2,7 +2,11 @@ import { config } from '../utils/config';
 import axios, { AxiosInstance } from 'axios';
 import { getSavedRefreshToken, saveTokens } from './apiClientUtils';
 import { authTokenInterceptor } from './authTokenInterceptor';
-import { UserFile, refreshTokenInterceptor } from '@sherapp/sher-shared';
+import {
+  UserFile,
+  refreshTokenInterceptor,
+  FetchFilesCriteria
+} from '@sherapp/sher-shared';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface SignInRequest {
@@ -63,10 +67,17 @@ export class ApiClient {
     await saveTokens(data.jwtToken, data.refreshToken);
   }
 
-  public async getFiles(): Promise<EnhancedFile[]> {
+  public async getFiles(
+    criteria?: FetchFilesCriteria
+  ): Promise<EnhancedFile[]> {
     const client = await this.client();
     const { data } = await client.get<UserFile[]>(
-      config.api.endpoints.fileUpload
+      config.api.endpoints.fileUpload,
+      {
+        params: {
+          ...criteria
+        }
+      }
     );
 
     return data.map((f) => ({ ...f, url: this.getFileUrl(f) ?? '' }));
