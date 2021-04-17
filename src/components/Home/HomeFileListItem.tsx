@@ -1,6 +1,6 @@
 import React from 'react';
 import fileSize from 'filesize';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Share } from 'react-native';
 import UploadedFileIcon from '../../../assets/svg/UploadedFileIcon';
 import Typography from '../misc/Typography';
 import useTheme from '../../theme/useTheme';
@@ -17,7 +17,7 @@ import {
   renderers
 } from 'react-native-popup-menu';
 import Clipboard from 'expo-clipboard';
-import ThemedMenuOption from '../misc/ThemedMenu';
+import ThemedMenuOption, { ThemedMenuSeparator } from '../misc/ThemedMenu';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -49,6 +49,10 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
     Clipboard.setString(link);
   };
 
+  const handleShareSelect = async () => {
+    await Share.share({ message: link });
+  };
+
   return (
     <TouchableOpacity onPress={handlePress}>
       <Surface m={[1, 0]} style={styles.container}>
@@ -59,7 +63,7 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
           <Typography>{name}</Typography>
           <Typography color="textSecondary">{fileSize(size)}</Typography>
         </View>
-        <Menu renderer={renderers.ContextMenu}>
+        <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
             <View style={{ padding: spacing(1) }}>
               <Entypo
@@ -78,6 +82,7 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
                 <AntDesign name="export" size={24} color={colors['text']} />
               }
             />
+            <ThemedMenuSeparator />
             <ThemedMenuOption
               text="Copy link"
               icon={
@@ -88,6 +93,11 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
                 />
               }
               onSelect={handleCopyToClipboardSelect}
+            />
+            <ThemedMenuOption
+              text="Share link"
+              icon={<AntDesign name="link" size={24} color={colors['text']} />}
+              onSelect={handleShareSelect}
             />
           </MenuOptions>
         </Menu>
