@@ -1,8 +1,14 @@
 import React from 'react';
-import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextProps,
+  TextStyle
+} from 'react-native';
 import useTheme from '../../../theme/useTheme';
 
-interface Props {
+interface Props extends TextProps {
   color?: 'text' | 'textSecondary' | 'primary' | 'button' | 'border' | 'error';
   variant?: 'h1' | 'body' | 'caption';
   style?: StyleProp<TextStyle>;
@@ -12,7 +18,8 @@ const Typography = ({
   variant = 'body',
   color = 'text',
   style,
-  children
+  children,
+  ...rest
 }: React.PropsWithChildren<Props>) => {
   const { colors } = useTheme();
   return (
@@ -24,6 +31,7 @@ const Typography = ({
         },
         style
       ]}
+      {...rest}
     >
       {children}
     </Text>
