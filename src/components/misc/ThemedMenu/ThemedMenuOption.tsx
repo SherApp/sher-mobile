@@ -1,7 +1,8 @@
 import useTheme from '../../../theme/useTheme';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MenuOption, MenuOptionProps } from 'react-native-popup-menu';
 import React from 'react';
+import Typography from '../Typography';
 
 interface Props extends MenuOptionProps {
   text: string;
@@ -25,7 +26,7 @@ const ThemedMenuOption = ({ text, icon, style, ...rest }: Props, ref: any) => {
     >
       <View style={styles.container}>
         <View style={{ marginRight: spacing(1.5) }}>{icon}</View>
-        <Text style={{ color: colors.text }}>{text}</Text>
+        <Typography>{text}</Typography>
       </View>
     </MenuOption>
   );
