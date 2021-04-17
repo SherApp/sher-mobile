@@ -10,6 +10,16 @@ import * as IntentLauncher from 'expo-intent-launcher';
 import { Platform } from 'react-native';
 import { getContentUriAsync } from 'expo-file-system';
 import { Entypo } from '@expo/vector-icons';
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers
+} from 'react-native-popup-menu';
+import Clipboard from 'expo-clipboard';
+import ThemedMenuOption from '../misc/ThemedMenu';
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Props {
   name: string;
@@ -35,6 +45,10 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
     }
   };
 
+  const handleCopyToClipboardSelect = () => {
+    Clipboard.setString(link);
+  };
+
   return (
     <TouchableOpacity onPress={handlePress}>
       <Surface m={[1, 0]} style={styles.container}>
@@ -45,13 +59,38 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
           <Typography>{name}</Typography>
           <Typography color="textSecondary">{fileSize(size)}</Typography>
         </View>
-        <TouchableOpacity>
-          <Entypo
-            name="dots-three-vertical"
-            size={8 * 2}
-            style={{ color: colors['text'] }}
-          />
-        </TouchableOpacity>
+        <Menu renderer={renderers.ContextMenu}>
+          <MenuTrigger>
+            <View style={{ padding: spacing(1) }}>
+              <Entypo
+                name="dots-three-vertical"
+                size={spacing(2)}
+                style={{
+                  color: colors['text']
+                }}
+              />
+            </View>
+          </MenuTrigger>
+          <MenuOptions optionsContainerStyle={{ backgroundColor: colors.card }}>
+            <ThemedMenuOption
+              text="Export"
+              icon={
+                <AntDesign name="export" size={24} color={colors['text']} />
+              }
+            />
+            <ThemedMenuOption
+              text="Copy link"
+              icon={
+                <Ionicons
+                  name="clipboard-outline"
+                  size={24}
+                  color={colors['text']}
+                />
+              }
+              onSelect={handleCopyToClipboardSelect}
+            />
+          </MenuOptions>
+        </Menu>
       </Surface>
     </TouchableOpacity>
   );
