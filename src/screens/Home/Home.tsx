@@ -68,7 +68,7 @@ const Home = () => {
         </Surface>
         <View style={{ width: '100%', height: 2 }}>
           <LinearGradient
-            colors={[gradients.primary[0], gradients.primary[1]]}
+            colors={gradients.primary}
             start={[0, 0]}
             end={[1, 0]}
             style={{ flex: 1 }}
