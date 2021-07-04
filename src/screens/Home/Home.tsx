@@ -54,6 +54,8 @@ const Home = () => {
     setShowShadow(e.nativeEvent.contentOffset.y >= SHOW_SHADOW_MIN_OFFSET);
   };
 
+  const filteredOutFiles = files?.filter((f) => !f.isDeleted);
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
@@ -76,7 +78,7 @@ const Home = () => {
         </View>
       </Surface>
       <FlatList
-        data={files}
+        data={filteredOutFiles}
         renderItem={({ item }) => (
           <HomeFileListItem
             name={item.fileName}
