@@ -21,7 +21,9 @@ const ListItem = ({ icon, name, secondary, onPress, menu }: Props) => {
         <View style={styles.iconContainer}>{icon}</View>
         <View style={{ marginLeft: spacing(2), flex: 1 }}>
           <Typography>{name}</Typography>
-          <Typography color="textSecondary">{secondary}</Typography>
+          {secondary && (
+            <Typography color="textSecondary">{secondary}</Typography>
+          )}
         </View>
         {menu}
       </Surface>
@@ -31,11 +33,13 @@ const ListItem = ({ icon, name, secondary, onPress, menu }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    height: 48,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
   },
   iconContainer: {
+    justifyContent: 'center',
     aspectRatio: 1,
     height: 32
   }
