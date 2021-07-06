@@ -102,6 +102,11 @@ export class ApiClient {
     };
   }
 
+  public async deleteDirectory(directoryId: string) {
+    const client = await this.client();
+    await client.delete(config.api.endpoints.directory(directoryId));
+  }
+
   private enhanceFile(file: UserFile) {
     return { ...file, url: this.getFileUrl(file) ?? '' };
   }

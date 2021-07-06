@@ -50,6 +50,7 @@ const DirectoryContentsBrowser = ({
           />
         ) : (
           <DirectoryListItem
+            id={item.id}
             name={item.name}
             onPress={() => handleDirectoryPress(item.id)}
           />

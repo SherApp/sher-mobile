@@ -11,13 +11,28 @@ import {
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import ListItem from './ListItem';
+import { useMutation, useQueryClient } from 'react-query';
+import { useApiClient } from '../../../api/useApiClient';
 
 interface Props {
+  id: string;
   name: string;
   onPress(): void;
 }
 
-const DirectoryListItem = ({ name, onPress }: Props) => {
+const DirectoryListItem = ({ id, name, onPress }: Props) => {
+  const apiClient = useApiClient();
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation(() => apiClient.deleteDirectory(id), {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('listDirectory');
+    }
+  });
+
+  const handleDeleteSelect = async () => {
+    await deleteMutation.mutateAsync();
+  };
+
   const { spacing, colors } = useTheme();
 
   return (
@@ -44,6 +59,7 @@ const DirectoryListItem = ({ name, onPress }: Props) => {
               icon={
                 <AntDesign name="delete" size={24} color={colors['text']} />
               }
+              onSelect={handleDeleteSelect}
             />
             <ThemedMenuSeparator />
           </MenuOptions>
