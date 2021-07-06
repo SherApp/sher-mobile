@@ -1,10 +1,7 @@
 import React from 'react';
 import fileSize from 'filesize';
-import { View, StyleSheet, TouchableOpacity, Share } from 'react-native';
-import UploadedFileIcon from '../../../assets/svg/UploadedFileIcon';
-import Typography from '../misc/Typography';
-import useTheme from '../../theme/useTheme';
-import Surface from '../misc/Surface';
+import { View, Share } from 'react-native';
+import useTheme from '../../../theme/useTheme';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Platform } from 'react-native';
@@ -17,9 +14,10 @@ import {
   renderers
 } from 'react-native-popup-menu';
 import Clipboard from 'expo-clipboard';
-import ThemedMenuOption, { ThemedMenuSeparator } from '../misc/ThemedMenu';
+import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import ListItem from './ListItem';
 
 interface Props {
   name: string;
@@ -27,7 +25,7 @@ interface Props {
   link: string;
 }
 
-const HomeFileListItem = ({ name, size, link }: Props) => {
+const FileListItem = ({ name, size, link }: Props) => {
   const { spacing, colors } = useTheme();
 
   const handlePress = async () => {
@@ -54,15 +52,12 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <Surface m={[1, 0]} style={styles.container}>
-        <View style={styles.iconContainer}>
-          <UploadedFileIcon />
-        </View>
-        <View style={{ marginLeft: spacing(3.5), flex: 1 }}>
-          <Typography>{name}</Typography>
-          <Typography color="textSecondary">{fileSize(size)}</Typography>
-        </View>
+    <ListItem
+      icon={<AntDesign name="file1" size={24} color={colors['primary']} />}
+      name={name}
+      secondary={fileSize(size)}
+      onPress={handlePress}
+      menu={
         <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
             <View style={{ padding: spacing(1) }}>
@@ -101,21 +96,9 @@ const HomeFileListItem = ({ name, size, link }: Props) => {
             />
           </MenuOptions>
         </Menu>
-      </Surface>
-    </TouchableOpacity>
+      }
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  iconContainer: {
-    aspectRatio: 1,
-    height: 32
-  }
-});
-
-export default HomeFileListItem;
+export default FileListItem;

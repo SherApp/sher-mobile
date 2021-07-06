@@ -5,7 +5,8 @@ import { authTokenInterceptor } from './authTokenInterceptor';
 import {
   UserFile,
   refreshTokenInterceptor,
-  FetchFilesCriteria
+  FetchFilesCriteria,
+  Directory
 } from '@sherapp/sher-shared';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -80,13 +81,29 @@ export class ApiClient {
       }
     );
 
-    return data.map((f) => ({ ...f, url: this.getFileUrl(f) ?? '' }));
+    return data.map((f) => this.enhanceFile(f));
   }
 
   public getFileUrl({ id, fileName }: Pick<UserFile, 'id' | 'fileName'>) {
     if (this.filesUrl) {
       return new URL(`${id}/${fileName}`, this.filesUrl).href;
     }
+  }
+
+  public async listDirectory(directoryId?: string) {
+    const client = await this.client();
+    const { data } = await client.get<Directory>(
+      config.api.endpoints.directory(directoryId)
+    );
+
+    return {
+      ...data,
+      files: data.files.map((f) => this.enhanceFile(f))
+    };
+  }
+
+  private enhanceFile(file: UserFile) {
+    return { ...file, url: this.getFileUrl(file) ?? '' };
   }
 
   private async installInterceptors(client: AxiosInstance) {
