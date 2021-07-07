@@ -8,8 +8,6 @@ import FileListItem from './FileListItem';
 import React from 'react';
 import useTheme from '../../../theme/useTheme';
 import DirectoryListItem from './DirectoryListItem';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Directory } from '@sherapp/sher-shared';
 
 interface Props {
@@ -28,13 +26,6 @@ const DirectoryContentsBrowser = ({
   refreshing
 }: Props) => {
   const { spacing } = useTheme();
-  const navigation = useNavigation<StackNavigationProp<any>>();
-
-  const handleDirectoryPress = (directoryId: string) => {
-    navigation.push('Home', {
-      directoryId
-    });
-  };
 
   const data = [...directories, ...files].filter((i) => !i.isDeleted);
 
@@ -49,11 +40,7 @@ const DirectoryContentsBrowser = ({
             link={item.url}
           />
         ) : (
-          <DirectoryListItem
-            id={item.id}
-            name={item.name}
-            onPress={() => handleDirectoryPress(item.id)}
-          />
+          <DirectoryListItem id={item.id} name={item.name} />
         )
       }
       style={{ paddingHorizontal: spacing(2) }}

@@ -3,9 +3,17 @@ import React from 'react';
 import { processFontFamily } from 'expo-font';
 import useTheme from '../../theme/useTheme';
 import { StackHeaderTitleProps } from '@react-navigation/stack';
+import { useRoute } from '@react-navigation/native';
+
+interface RouteParams {
+  name?: string;
+}
 
 const HeaderTitle = ({ children }: StackHeaderTitleProps) => {
+  const { params } = useRoute();
+
   const { spacing, gradients } = useTheme();
+
   return (
     <Svg height="100" width="200" style={{ marginLeft: spacing(1) }}>
       <Text
@@ -16,7 +24,7 @@ const HeaderTitle = ({ children }: StackHeaderTitleProps) => {
         y="50%"
         dy="0.3em"
       >
-        {children}
+        {(params as RouteParams)?.name ?? children}
       </Text>
       <Defs>
         <LinearGradient id="a" x1="0" y1="0" x2="1" y2="0">

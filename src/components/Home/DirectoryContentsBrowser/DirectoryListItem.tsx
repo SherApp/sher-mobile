@@ -13,14 +13,15 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import ListItem from './ListItem';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '../../../api/useApiClient';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface Props {
   id: string;
   name: string;
-  onPress(): void;
 }
 
-const DirectoryListItem = ({ id, name, onPress }: Props) => {
+const DirectoryListItem = ({ id, name }: Props) => {
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
   const deleteMutation = useMutation(() => apiClient.deleteDirectory(id), {
@@ -29,8 +30,17 @@ const DirectoryListItem = ({ id, name, onPress }: Props) => {
     }
   });
 
+  const navigation = useNavigation<StackNavigationProp<any>>();
+
   const handleDeleteSelect = async () => {
     await deleteMutation.mutateAsync();
+  };
+
+  const handlePress = () => {
+    navigation.push('Home', {
+      directoryId: id,
+      name
+    });
   };
 
   const { spacing, colors } = useTheme();
@@ -39,7 +49,7 @@ const DirectoryListItem = ({ id, name, onPress }: Props) => {
     <ListItem
       icon={<Feather name="folder" size={24} color={colors['primary']} />}
       name={name}
-      onPress={onPress}
+      onPress={handlePress}
       menu={
         <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
