@@ -20,9 +20,11 @@ const ListItem = ({ icon, name, secondary, onPress, menu }: Props) => {
       <Surface m={[1, 0]} style={styles.container}>
         <View style={styles.iconContainer}>{icon}</View>
         <View style={{ marginLeft: spacing(2), flex: 1 }}>
-          <Typography>{name}</Typography>
+          <Typography numberOfLines={1}>{name}</Typography>
           {secondary && (
-            <Typography color="textSecondary">{secondary}</Typography>
+            <Typography numberOfLines={1} color="textSecondary">
+              {secondary}
+            </Typography>
           )}
         </View>
         {menu}
