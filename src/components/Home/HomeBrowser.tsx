@@ -22,7 +22,7 @@ const HomeBrowser = () => {
     (params as RouteParams)?.directoryId
   );
 
-  const { isLoading: isLoadingSearch } = useFileSearch(searchQuery);
+  const { files = [], isLoading: isLoadingSearch } = useFileSearch(searchQuery);
 
   const handleSearchChange = (text: string) => {
     setSearchQuery(text);
@@ -38,6 +38,8 @@ const HomeBrowser = () => {
 
   if (!directory) return null;
 
+  const isSearching = searchQuery !== '';
+
   return (
     <>
       <HomeSearch
@@ -46,8 +48,8 @@ const HomeBrowser = () => {
         showShadow={showShadow}
       />
       <DirectoryContentsBrowser
-        directories={directory.directories}
-        files={directory.files}
+        directories={isSearching ? [] : directory.directories}
+        files={isSearching ? files : directory.files}
         onScroll={handleScroll}
         onRefresh={
           !searchQuery || searchQuery === '' ? handleRefresh : undefined
