@@ -4,22 +4,18 @@ import HomeSearch from './HomeSearch';
 import { useDirectory } from './useDirectory';
 import { useFileSearch } from './useFileSearch';
 import DirectoryContentsBrowser from './DirectoryContentsBrowser/DirectoryContentsBrowser';
-import { useRoute } from '@react-navigation/native';
+import { useCurrentDirectoryId } from './useCurrentDirectoryId';
 
 const SHOW_SHADOW_MIN_OFFSET = 20;
 
-interface RouteParams {
-  directoryId: string;
-}
-
 const HomeBrowser = () => {
-  const { params } = useRoute();
-
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showShadow, setShowShadow] = useState(false);
 
+  const directoryId = useCurrentDirectoryId();
+
   const { directory, isLoading: isLoadingDir, refresh } = useDirectory(
-    (params as RouteParams)?.directoryId
+    directoryId
   );
 
   const { files = [], isLoading: isLoadingSearch } = useFileSearch(searchQuery);

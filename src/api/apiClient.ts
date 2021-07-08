@@ -6,7 +6,8 @@ import {
   UserFile,
   refreshTokenInterceptor,
   FetchFilesCriteria,
-  Directory
+  Directory,
+  CreateDirectoryRequest
 } from '@sherapp/sher-shared';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -100,6 +101,11 @@ export class ApiClient {
       ...data,
       files: data.files.map((f) => this.enhanceFile(f))
     };
+  }
+
+  public async createDirectory(request: CreateDirectoryRequest) {
+    const client = await this.client();
+    await client.post(config.api.endpoints.directory(), request);
   }
 
   public async deleteDirectory(directoryId: string) {
