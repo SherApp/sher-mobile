@@ -29,9 +29,9 @@ const HomeHeaderRight = () => {
       <Menu renderer={renderers.SlideInMenu}>
         <MenuTrigger>
           <View style={{ padding: spacing(1) }}>
-            <Entypo
-              name="dots-three-vertical"
-              size={spacing(2)}
+            <Feather
+              name="more-vertical"
+              size={24}
               style={{
                 color: colors['text']
               }}
