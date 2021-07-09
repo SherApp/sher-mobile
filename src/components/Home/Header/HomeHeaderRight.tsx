@@ -4,15 +4,20 @@ import {
   MenuTrigger,
   renderers
 } from 'react-native-popup-menu';
-import { View } from 'react-native';
-import { Entypo, Feather } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import ThemedMenuOption from '../../misc/ThemedMenu/ThemedMenuOption';
 import { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import React, { useState } from 'react';
 import useTheme from '../../../theme/useTheme';
 import CreateFolderDialog from './CreateFolderDialog';
+import IconButton from '../../misc/IconButton';
 
-const HomeHeaderRight = () => {
+interface Props {
+  onSearchPress?(): void;
+}
+
+const HomeHeaderRight = ({ onSearchPress }: Props) => {
   const [createFolderVisible, setCreateFolderVisible] = useState(false);
   const { colors, spacing } = useTheme();
 
@@ -21,11 +26,14 @@ const HomeHeaderRight = () => {
   };
 
   return (
-    <View style={{ marginRight: spacing(2) }}>
+    <View style={[{ marginRight: spacing(2) }, styles.container]}>
       <CreateFolderDialog
         onClose={() => setCreateFolderVisible(false)}
         visible={createFolderVisible}
       />
+      <IconButton onPress={onSearchPress}>
+        <Feather name="search" size={24} color={colors.text} />
+      </IconButton>
       <Menu renderer={renderers.SlideInMenu}>
         <MenuTrigger>
           <View style={{ padding: spacing(1) }}>
@@ -52,5 +60,13 @@ const HomeHeaderRight = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+});
 
 export default HomeHeaderRight;

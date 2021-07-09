@@ -5,12 +5,17 @@ import { useDirectory } from './useDirectory';
 import { useFileSearch } from './useFileSearch';
 import DirectoryContentsBrowser from './DirectoryContentsBrowser/DirectoryContentsBrowser';
 import { useCurrentDirectoryId } from './useCurrentDirectoryId';
+import { useHeaderShadow } from '../Header/HeaderShadowContext';
 
 const SHOW_SHADOW_MIN_OFFSET = 20;
 
-const HomeBrowser = () => {
+interface Props {
+  showSearch?: boolean;
+}
+
+const HomeBrowser = ({ showSearch }: Props) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [showShadow, setShowShadow] = useState(false);
+  const { setShadowVisible: setHeaderShadowVisible } = useHeaderShadow();
 
   const directoryId = useCurrentDirectoryId();
 
@@ -25,7 +30,8 @@ const HomeBrowser = () => {
   };
 
   const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    setShowShadow(e.nativeEvent.contentOffset.y >= SHOW_SHADOW_MIN_OFFSET);
+    const visible = e.nativeEvent.contentOffset.y >= SHOW_SHADOW_MIN_OFFSET;
+    setHeaderShadowVisible?.(visible);
   };
 
   const handleRefresh = () => {
@@ -41,7 +47,7 @@ const HomeBrowser = () => {
       <HomeSearch
         value={searchQuery}
         onChange={handleSearchChange}
-        showShadow={showShadow}
+        visible={showSearch}
       />
       <DirectoryContentsBrowser
         directories={isSearching ? [] : directory.directories}
