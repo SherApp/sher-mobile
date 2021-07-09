@@ -4,7 +4,7 @@ import useTheme from '../../../theme/useTheme';
 
 type SpaceValue = [number, number] | number;
 
-interface Props extends Animated.AnimatedProps<ViewProps> {
+export interface Props extends Animated.AnimatedProps<ViewProps> {
   m?: SpaceValue;
   p?: SpaceValue;
   children?: React.ReactNode;
