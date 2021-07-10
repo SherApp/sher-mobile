@@ -6,7 +6,7 @@ import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Platform } from 'react-native';
 import { getContentUriAsync } from 'expo-file-system';
-import { Entypo } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import {
   Menu,
   MenuOptions,
@@ -15,8 +15,6 @@ import {
 } from 'react-native-popup-menu';
 import Clipboard from 'expo-clipboard';
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
-import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import ListItem from './ListItem';
 
 interface Props {
@@ -53,7 +51,7 @@ const FileListItem = ({ name, size, link }: Props) => {
 
   return (
     <ListItem
-      icon={<AntDesign name="file1" size={24} color={colors['primary']} />}
+      icon={<Feather name="file" size={24} color={colors['primary']} />}
       name={name}
       secondary={fileSize(size)}
       onPress={handlePress}
@@ -61,9 +59,9 @@ const FileListItem = ({ name, size, link }: Props) => {
         <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
             <View style={{ padding: spacing(1) }}>
-              <Entypo
-                name="dots-three-vertical"
-                size={spacing(2)}
+              <Feather
+                name="more-vertical"
+                size={24}
                 style={{
                   color: colors['text']
                 }}
@@ -74,24 +72,24 @@ const FileListItem = ({ name, size, link }: Props) => {
             <ThemedMenuOption
               text="Export"
               icon={
-                <AntDesign name="export" size={24} color={colors['text']} />
+                <Feather
+                  name="external-link"
+                  size={24}
+                  color={colors['text']}
+                />
               }
             />
             <ThemedMenuSeparator />
             <ThemedMenuOption
               text="Copy link"
               icon={
-                <Ionicons
-                  name="clipboard-outline"
-                  size={24}
-                  color={colors['text']}
-                />
+                <Feather name="clipboard" size={24} color={colors['text']} />
               }
               onSelect={handleCopyToClipboardSelect}
             />
             <ThemedMenuOption
               text="Share link"
-              icon={<AntDesign name="link" size={24} color={colors['text']} />}
+              icon={<Feather name="link" size={24} color={colors['text']} />}
               onSelect={handleShareSelect}
             />
           </MenuOptions>

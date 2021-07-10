@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import useTheme from '../../../theme/useTheme';
-import { Entypo } from '@expo/vector-icons';
 import {
   Menu,
   MenuOptions,
@@ -9,7 +8,7 @@ import {
   renderers
 } from 'react-native-popup-menu';
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import ListItem from './ListItem';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '../../../api/useApiClient';
@@ -54,9 +53,9 @@ const DirectoryListItem = ({ id, name }: Props) => {
         <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
             <View style={{ padding: spacing(1) }}>
-              <Entypo
-                name="dots-three-vertical"
-                size={spacing(2)}
+              <Feather
+                name="more-vertical"
+                size={24}
                 style={{
                   color: colors['text']
                 }}
@@ -66,9 +65,7 @@ const DirectoryListItem = ({ id, name }: Props) => {
           <MenuOptions optionsContainerStyle={{ backgroundColor: colors.card }}>
             <ThemedMenuOption
               text="Delete"
-              icon={
-                <AntDesign name="delete" size={24} color={colors['text']} />
-              }
+              icon={<Feather name="trash-2" size={24} color={colors['text']} />}
               onSelect={handleDeleteSelect}
             />
             <ThemedMenuSeparator />
