@@ -26,7 +26,7 @@ const HomeHeaderRight = ({ onSearchPress }: Props) => {
   };
 
   return (
-    <View style={[{ marginRight: spacing(2) }, styles.container]}>
+    <View style={[{ marginRight: spacing(1) }, styles.container]}>
       <CreateFolderDialog
         onClose={() => setCreateFolderVisible(false)}
         visible={createFolderVisible}

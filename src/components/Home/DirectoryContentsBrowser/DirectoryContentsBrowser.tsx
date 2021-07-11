@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import FileListItem from './FileListItem';
 import React from 'react';
-import useTheme from '../../../theme/useTheme';
 import DirectoryListItem from './DirectoryListItem';
 import { Directory } from '@sherapp/sher-shared';
 
@@ -25,8 +24,6 @@ const DirectoryContentsBrowser = ({
   onRefresh,
   refreshing
 }: Props) => {
-  const { spacing } = useTheme();
-
   const data = [...directories, ...files].filter((i) => !i.isDeleted);
 
   return (
@@ -43,7 +40,6 @@ const DirectoryContentsBrowser = ({
           <DirectoryListItem id={item.id} name={item.name} />
         )
       }
-      style={{ paddingHorizontal: spacing(2) }}
       onScroll={onScroll}
       onRefresh={onRefresh}
       refreshing={refreshing}
