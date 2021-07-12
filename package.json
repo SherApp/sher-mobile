@@ -20,6 +20,7 @@
     "axios": "^0.21.1",
     "expo": "~40.0.0",
     "expo-clipboard": "~1.0.1",
+    "expo-document-picker": "~8.4.1",
     "expo-file-system": "~9.3.0",
     "expo-font": "~8.4.0",
     "expo-intent-launcher": "~8.4.0",
@@ -33,6 +34,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-appearance": "~0.3.3",
     "react-native-dialog": "^8.0.1",
+    "react-native-floating-action": "^1.21.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-get-random-values": "^1.7.0",
     "react-native-indicators": "^0.17.0",
@@ -44,6 +46,7 @@
     "react-native-svg": "12.1.0",
     "react-native-web": "~0.13.12",
     "react-query": "^3.18.1",
+    "tus-js-client": "^2.3.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },

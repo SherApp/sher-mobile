@@ -1,6 +1,11 @@
 import { config } from '../utils/config';
 import axios, { AxiosInstance } from 'axios';
-import { getSavedRefreshToken, saveTokens } from './apiClientUtils';
+import {
+  getSavedBaseUrl,
+  getSavedRefreshToken,
+  saveBaseUrl,
+  saveTokens
+} from './apiClientUtils';
 import { authTokenInterceptor } from './authTokenInterceptor';
 import {
   UserFile,
@@ -9,7 +14,6 @@ import {
   Directory,
   CreateDirectoryRequest
 } from '@sherapp/sher-shared';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface SignInRequest {
   emailAddress: string;
@@ -23,8 +27,6 @@ export interface AuthenticationResponse {
 }
 
 type AuthRequiredCallback = () => void;
-
-const API_BASE_URL_STORAGE_KEY: string = 'API_BASE_URL';
 
 export interface EnhancedFile extends UserFile {
   url: string;
@@ -40,7 +42,7 @@ export class ApiClient {
   }
 
   public async signIn({ instanceUrl, ...rest }: SignInRequest) {
-    await AsyncStorage.setItem(API_BASE_URL_STORAGE_KEY, instanceUrl);
+    await saveBaseUrl(instanceUrl);
 
     const client = await this.client();
     const { data } = await client.post<AuthenticationResponse>(
@@ -135,7 +137,7 @@ export class ApiClient {
       return this._axiosClient;
     }
 
-    const baseUrl = await AsyncStorage.getItem(API_BASE_URL_STORAGE_KEY);
+    const baseUrl = await getSavedBaseUrl();
 
     this._axiosClient = axios.create({
       baseURL: baseUrl ? new URL('/api', baseUrl).href : undefined
