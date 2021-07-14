@@ -14,7 +14,7 @@ interface RouteParams {
 const HeaderTitle = ({ children }: StackHeaderTitleProps) => {
   const { params } = useRoute();
 
-  const { gradients } = useTheme();
+  const { gradients, colors } = useTheme();
 
   return (
     <View
@@ -43,7 +43,7 @@ const HeaderTitle = ({ children }: StackHeaderTitleProps) => {
         </Defs>
       </Svg>
       <ExpoLinearGradient
-        colors={['transparent', 'white']}
+        colors={['transparent', colors.background]}
         start={[0, 0]}
         end={[1, 0]}
         style={{ height: 50, width: 25, transform: [{ translateX: -25 }] }}
