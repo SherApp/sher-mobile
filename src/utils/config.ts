@@ -5,20 +5,23 @@ export const config = {
         root: '/token',
         new: '/token/new'
       },
-      fileUpload: '/file',
+      file: (fileId?: string) => resourceOfId('file', fileId),
       user: '/user',
       platform: {
         root: '/platform',
         settings: '/platform/settings',
         registrationSettings: '/platform/settings/registration'
       },
-      directory: (directoryId?: string) => {
-        let url = '/directory';
-        if (directoryId) {
-          url += `/${directoryId}`;
-        }
-        return url;
-      }
+      directory: (directoryId?: string) =>
+        resourceOfId('directory', directoryId)
     }
   }
+};
+
+const resourceOfId = (resourceName: string, resourceId?: string) => {
+  let url = `/${resourceName}`;
+  if (resourceId) {
+    url += `/${resourceId}`;
+  }
+  return url;
 };

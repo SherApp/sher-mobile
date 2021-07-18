@@ -16,7 +16,7 @@ const HomeFAB = () => {
   const handleMainPress = async () => {
     const res = await DocumentPicker.getDocumentAsync({});
     if (res.type === 'success') {
-      await uploadFile(res, directoryId);
+      await uploadFile(res, res.name, directoryId);
     }
   };
 

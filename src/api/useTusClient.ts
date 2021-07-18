@@ -12,7 +12,11 @@ type UseFileUploadOptions = Pick<
 export const useTusClient = (options: UseFileUploadOptions = {}) => {
   const apiClient = useApiClient();
 
-  const uploadFile = async (file: any, directoryId?: string) => {
+  const uploadFile = async (
+    file: any,
+    fileName: string,
+    parentDirectoryId?: string
+  ) => {
     const url = await getSavedBaseUrl();
 
     if (!url) {
@@ -24,11 +28,14 @@ export const useTusClient = (options: UseFileUploadOptions = {}) => {
 
     let shouldRefreshToken = false;
 
+    const metadata = {
+      fileName,
+      ...(parentDirectoryId ? { parentDirectoryId } : {})
+    };
+
     const upload = new tus.Upload(file, {
-      endpoint: new URL(`/api${config.api.endpoints.fileUpload}`, url).href,
-      metadata: {
-        directoryId: directoryId ?? ''
-      },
+      endpoint: new URL(`/api${config.api.endpoints.file}`, url).href,
+      metadata,
       onError: (e) => console.error(e),
       onBeforeRequest: async () => {
         if (shouldRefreshToken) {
