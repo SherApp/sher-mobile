@@ -34,6 +34,7 @@ const HomeFAB = () => {
       buttonColor={colors.primary}
       onPress={handleMainPress}
       renderIcon={() => <Feather name="upload-cloud" size={24} color="white" />}
+      fixNativeFeedbackRadius
     />
   );
 };
