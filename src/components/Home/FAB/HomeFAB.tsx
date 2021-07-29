@@ -1,15 +1,22 @@
 import React from 'react';
-import { FloatingAction } from 'react-native-floating-action';
 import * as DocumentPicker from 'expo-document-picker';
 import { useCurrentDirectoryId } from '../useCurrentDirectoryId';
 import { ToastAndroid } from 'react-native';
 import { useTusClient } from '../../../api/useTusClient';
+import { useQueryClient } from 'react-query';
+import ActionButton from 'react-native-action-button';
+import useTheme from '../../../theme/useTheme';
+import { Feather } from '@expo/vector-icons';
 
 const HomeFAB = () => {
+  const queryClient = useQueryClient();
+
   const directoryId = useCurrentDirectoryId();
+
   const { uploadFile } = useTusClient({
     onSuccess: () => {
       ToastAndroid.show('Upload success!', ToastAndroid.SHORT);
+      queryClient.invalidateQueries('listDirectory');
     }
   });
 
@@ -20,7 +27,15 @@ const HomeFAB = () => {
     }
   };
 
-  return <FloatingAction onPressMain={handleMainPress} />;
+  const { colors } = useTheme();
+
+  return (
+    <ActionButton
+      buttonColor={colors.primary}
+      onPress={handleMainPress}
+      renderIcon={() => <Feather name="upload-cloud" size={24} color="white" />}
+    />
+  );
 };
 
 export default HomeFAB;
