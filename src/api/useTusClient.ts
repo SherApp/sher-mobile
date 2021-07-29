@@ -34,7 +34,7 @@ export const useTusClient = (options: UseFileUploadOptions = {}) => {
     };
 
     const upload = new tus.Upload(file, {
-      endpoint: new URL(`/api${config.api.endpoints.file}`, url).href,
+      endpoint: new URL(`/api${config.api.endpoints.file()}`, url).href,
       metadata,
       onError: (e) => console.error(e),
       onBeforeRequest: async () => {
