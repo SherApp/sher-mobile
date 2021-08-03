@@ -13,6 +13,7 @@ import { HeaderTitle } from './components/Header';
 import { MenuProvider } from 'react-native-popup-menu';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HeaderShadowProvider } from './components/Header/HeaderShadowContext';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const queryClient = new QueryClient();
 
@@ -30,40 +31,42 @@ function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppearanceProvider>
-        <HeaderShadowProvider>
-          <MenuProvider
-            customStyles={{
-              backdrop: { backgroundColor: 'black', opacity: 0.5 }
-            }}
-          >
-            <NavigationContainer theme={theme}>
-              <Stack.Navigator
-                screenOptions={{
-                  headerTitle: (props) => <HeaderTitle {...props} />
-                }}
-              >
-                <Stack.Screen
-                  name="Home"
-                  component={Home}
-                  options={{
-                    title: 'My files'
+    <RootSiblingParent>
+      <QueryClientProvider client={queryClient}>
+        <AppearanceProvider>
+          <HeaderShadowProvider>
+            <MenuProvider
+              customStyles={{
+                backdrop: { backgroundColor: 'black', opacity: 0.5 }
+              }}
+            >
+              <NavigationContainer theme={theme}>
+                <Stack.Navigator
+                  screenOptions={{
+                    headerTitle: (props) => <HeaderTitle {...props} />
                   }}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{
-                    headerShown: false
-                  }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </MenuProvider>
-        </HeaderShadowProvider>
-      </AppearanceProvider>
-    </QueryClientProvider>
+                >
+                  <Stack.Screen
+                    name="Home"
+                    component={Home}
+                    options={{
+                      title: 'My files'
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                      headerShown: false
+                    }}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </MenuProvider>
+          </HeaderShadowProvider>
+        </AppearanceProvider>
+      </QueryClientProvider>
+    </RootSiblingParent>
   );
 }
 

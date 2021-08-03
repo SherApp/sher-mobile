@@ -43,8 +43,11 @@ export class ApiClient {
   public async signIn({ instanceUrl, ...rest }: SignInRequest) {
     await saveBaseUrl(instanceUrl);
 
-    const client = await this.client();
-    const { data } = await client.post<AuthenticationResponse>(
+    const anonymousClient = axios.create({
+      baseURL: new URL('/api', instanceUrl).href
+    });
+
+    const { data } = await anonymousClient.post<AuthenticationResponse>(
       config.api.endpoints.token.new,
       rest,
       {
