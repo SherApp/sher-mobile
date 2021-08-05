@@ -38,8 +38,6 @@ const HomeBrowser = ({ showSearch }: Props) => {
     refresh();
   };
 
-  if (!directory) return null;
-
   const isSearching = searchQuery !== '';
 
   return (
@@ -50,8 +48,8 @@ const HomeBrowser = ({ showSearch }: Props) => {
         visible={showSearch}
       />
       <DirectoryContentsBrowser
-        directories={isSearching ? [] : directory.directories}
-        files={isSearching ? files : directory.files}
+        directories={isSearching ? [] : directory?.directories}
+        files={isSearching ? files : directory?.files}
         onScroll={handleScroll}
         onRefresh={
           !searchQuery || searchQuery === '' ? handleRefresh : undefined

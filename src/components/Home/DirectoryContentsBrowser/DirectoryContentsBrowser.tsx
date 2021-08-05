@@ -2,7 +2,8 @@ import { EnhancedFile } from '../../../api/apiClient';
 import {
   FlatList,
   NativeScrollEvent,
-  NativeSyntheticEvent
+  NativeSyntheticEvent,
+  StyleSheet
 } from 'react-native';
 import FileListItem from './FileListItem';
 import React from 'react';
@@ -10,16 +11,16 @@ import DirectoryListItem from './DirectoryListItem';
 import { Directory } from '@sherapp/sher-shared';
 
 interface Props {
-  directories: Directory[];
-  files: EnhancedFile[];
+  directories?: Directory[];
+  files?: EnhancedFile[];
   onScroll(e: NativeSyntheticEvent<NativeScrollEvent>): void;
   onRefresh?(): void;
   refreshing: boolean;
 }
 
 const DirectoryContentsBrowser = ({
-  directories,
-  files,
+  directories = [],
+  files = [],
   onScroll,
   onRefresh,
   refreshing
@@ -44,8 +45,15 @@ const DirectoryContentsBrowser = ({
       onRefresh={onRefresh}
       refreshing={refreshing}
       scrollEventThrottle={100}
+      style={styles.root}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  }
+});
 
 export default DirectoryContentsBrowser;
