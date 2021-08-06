@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Surface, { SurfaceProps } from '../Surface';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, LayoutChangeEvent, StyleSheet, View } from 'react-native';
 
 interface Props extends SurfaceProps {
   collapse?: boolean;
@@ -11,11 +11,9 @@ const Collapsible = ({ collapse, children, ...rest }: Props) => {
   const collapseAnim = useRef(new Animated.Value(0)).current;
   const baseHeightRef = useRef(0);
 
-  useEffect(() => {
-    wrapperRef.current?.measureInWindow((x, y, width, height) => {
-      baseHeightRef.current = height;
-    });
-  }, []);
+  const handleLayout = (e: LayoutChangeEvent) => {
+    baseHeightRef.current = e.nativeEvent.layout.height;
+  };
 
   useEffect(() => {
     const target = collapse ? 0 : baseHeightRef.current;
@@ -29,7 +27,11 @@ const Collapsible = ({ collapse, children, ...rest }: Props) => {
 
   return (
     <Surface style={[{ height: collapseAnim }, styles.container]} {...rest}>
-      <Surface ref={wrapperRef} style={styles.contentWrapper}>
+      <Surface
+        ref={wrapperRef}
+        style={styles.contentWrapper}
+        onLayout={handleLayout}
+      >
         {children}
       </Surface>
     </Surface>
