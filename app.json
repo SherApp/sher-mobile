@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "sher-mobile",
+    "name": "Sher",
     "slug": "sher-mobile",
     "entryPoint": "./src/App.tsx",
     "version": "1.0.0",
@@ -19,13 +19,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "me.romanowski.sher",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "me.romanowski.sher",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
