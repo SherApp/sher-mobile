@@ -1,44 +1,45 @@
-import React, { useLayoutEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import HomeBrowser from '../../components/Home/HomeBrowser';
-import { useNavigation } from '@react-navigation/native';
-import HomeHeaderRight from '../../components/Home/Header/HomeHeaderRight';
-import { useHeaderShadow } from '../../components/Header/HeaderShadowContext';
-import HomeFAB from '../../components/Home/FAB/HomeFAB';
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import More from '../More';
+import Files from '../Files';
+import { Feather } from '@expo/vector-icons';
+import Account from '../Account';
+
+const Tab = createBottomTabNavigator();
 
 const Home = () => {
-  const [showSearch, setShowSearch] = useState(false);
-  const navigation = useNavigation();
-  const { shadow } = useHeaderShadow();
-
-  const handleSearchPress = () => {
-    setShowSearch((p) => !p);
-  };
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <HomeHeaderRight onSearchPress={handleSearchPress} />,
-      headerStyle: {
-        elevation: showSearch ? 0 : shadow
-      }
-    });
-  });
-
   return (
-    <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
-      <HomeBrowser showSearch={showSearch} />
-      <HomeFAB />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Files"
+        component={Files}
+        options={{
+          title: 'My files',
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="folder" size={size} color={color} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={Account}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="user" size={size} color={color} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="More"
+        component={More}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="more-horizontal" size={size} color={color} />
+          )
+        }}
+      />
+    </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    overflow: 'hidden'
-  }
-});
 
 export default Home;

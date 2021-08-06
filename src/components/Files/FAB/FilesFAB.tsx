@@ -8,7 +8,7 @@ import ActionButton from 'react-native-action-button';
 import useTheme from '../../../theme/useTheme';
 import { Feather } from '@expo/vector-icons';
 
-const HomeFAB = () => {
+const FilesFAB = () => {
   const queryClient = useQueryClient();
 
   const directoryId = useCurrentDirectoryId();
@@ -39,4 +39,4 @@ const HomeFAB = () => {
   );
 };
 
-export default HomeFAB;
+export default FilesFAB;

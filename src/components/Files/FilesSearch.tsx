@@ -13,7 +13,7 @@ interface Props {
   visible?: boolean;
 }
 
-const HomeSearch = ({ value, onChange, visible }: Props) => {
+const FilesSearch = ({ value, onChange, visible }: Props) => {
   const { spacing, gradients } = useTheme();
 
   const { shadowVisible } = useHeaderShadow();
@@ -40,4 +40,4 @@ const HomeSearch = ({ value, onChange, visible }: Props) => {
   );
 };
 
-export default HomeSearch;
+export default FilesSearch;

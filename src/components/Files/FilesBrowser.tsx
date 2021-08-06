@@ -1,6 +1,6 @@
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import React, { useState } from 'react';
-import HomeSearch from './HomeSearch';
+import FilesSearch from './FilesSearch';
 import { useDirectory } from './useDirectory';
 import { useFileSearch } from './useFileSearch';
 import DirectoryContentsBrowser from './DirectoryContentsBrowser/DirectoryContentsBrowser';
@@ -13,7 +13,7 @@ interface Props {
   showSearch?: boolean;
 }
 
-const HomeBrowser = ({ showSearch }: Props) => {
+const FilesBrowser = ({ showSearch }: Props) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const { setShadowVisible: setHeaderShadowVisible } = useHeaderShadow();
 
@@ -42,7 +42,7 @@ const HomeBrowser = ({ showSearch }: Props) => {
 
   return (
     <>
-      <HomeSearch
+      <FilesSearch
         value={searchQuery}
         onChange={handleSearchChange}
         visible={showSearch}
@@ -60,4 +60,4 @@ const HomeBrowser = ({ showSearch }: Props) => {
   );
 };
 
-export default HomeBrowser;
+export default FilesBrowser;

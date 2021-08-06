@@ -8,12 +8,11 @@ import { AppearanceProvider } from 'react-native-appearance';
 import { Sacramento_400Regular, useFonts } from '@expo-google-fonts/sacramento';
 import { Oswald_400Regular } from '@expo-google-fonts/oswald';
 import useTheme from './theme/useTheme';
-import Home from './screens/Home';
-import { HeaderTitle } from './components/Header';
 import { MenuProvider } from 'react-native-popup-menu';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HeaderShadowProvider } from './components/Header/HeaderShadowContext';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import Home from './screens/Home';
 
 const queryClient = new QueryClient();
 
@@ -43,16 +42,10 @@ function App() {
               <NavigationContainer theme={theme}>
                 <Stack.Navigator
                   screenOptions={{
-                    headerTitle: (props) => <HeaderTitle {...props} />
+                    headerShown: false
                   }}
                 >
-                  <Stack.Screen
-                    name="Home"
-                    component={Home}
-                    options={{
-                      title: 'My files'
-                    }}
-                  />
+                  <Stack.Screen name="Home" component={Home} />
                   <Stack.Screen
                     name="Login"
                     component={Login}

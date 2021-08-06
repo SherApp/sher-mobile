@@ -36,7 +36,7 @@ const DirectoryListItem = ({ id, name }: Props) => {
   };
 
   const handlePress = () => {
-    navigation.push('Home', {
+    navigation.push('Files', {
       directoryId: id,
       name
     });
