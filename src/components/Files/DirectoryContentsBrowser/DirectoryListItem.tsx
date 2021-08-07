@@ -9,7 +9,7 @@ import {
 } from 'react-native-popup-menu';
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import { Feather } from '@expo/vector-icons';
-import ListItem from './ListItem';
+import ListItem from '../../misc/ListItem';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '../../../api/useApiClient';
 import { useNavigation } from '@react-navigation/native';
@@ -47,7 +47,7 @@ const DirectoryListItem = ({ id, name }: Props) => {
   return (
     <ListItem
       icon={<Feather name="folder" size={24} color={colors['primary']} />}
-      name={name}
+      text={name}
       onPress={handlePress}
       menu={
         <Menu renderer={renderers.SlideInMenu}>

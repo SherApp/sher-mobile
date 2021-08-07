@@ -9,7 +9,13 @@ const Tab = createBottomTabNavigator();
 
 const Home = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        labelStyle: {
+          fontFamily: 'Oswald_400Regular'
+        }
+      }}
+    >
       <Tab.Screen
         name="Files"
         component={Files}

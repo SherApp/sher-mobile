@@ -1,6 +1,7 @@
 import { config } from '../utils/config';
 import axios, { AxiosInstance } from 'axios';
 import {
+  clearAuthData,
   getSavedBaseUrl,
   getSavedRefreshToken,
   saveBaseUrl,
@@ -14,6 +15,11 @@ import {
   Directory,
   CreateDirectoryRequest
 } from '@sherapp/sher-shared';
+
+interface User {
+  emailAddress: string;
+  roles: string[];
+}
 
 interface SignInRequest {
   emailAddress: string;
@@ -60,6 +66,10 @@ export class ApiClient {
     await saveTokens(data.jwtToken, data.refreshToken);
   }
 
+  public async signOut() {
+    await clearAuthData();
+  }
+
   public async refreshToken() {
     const refreshToken = await getSavedRefreshToken();
     const client = await this.client();
@@ -71,6 +81,13 @@ export class ApiClient {
     );
 
     await saveTokens(data.jwtToken, data.refreshToken);
+  }
+
+  public async getUser() {
+    const client = await this.client();
+    const { data } = await client.get<User>(config.api.endpoints.user);
+
+    return data;
   }
 
   public async getFiles(

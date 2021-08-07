@@ -30,3 +30,10 @@ export const getSavedBaseUrl = async () => {
 export const saveBaseUrl = async (baseUrl: string) => {
   await AsyncStorage.setItem(AsyncStoreKeys.BaseUrl, baseUrl);
 };
+
+export const clearAuthData = async () => {
+  await AsyncStorage.removeItem(AsyncStoreKeys.BaseUrl);
+
+  await SecureStore.deleteItemAsync(SecureStoreKeys.JwtToken);
+  await SecureStore.deleteItemAsync(SecureStoreKeys.RefreshToken);
+};

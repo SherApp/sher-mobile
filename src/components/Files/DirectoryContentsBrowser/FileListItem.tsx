@@ -15,7 +15,7 @@ import {
 } from 'react-native-popup-menu';
 import Clipboard from 'expo-clipboard';
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
-import ListItem from './ListItem';
+import ListItem from '../../misc/ListItem';
 
 interface Props {
   name: string;
@@ -52,8 +52,8 @@ const FileListItem = ({ name, size, link }: Props) => {
   return (
     <ListItem
       icon={<Feather name="file" size={24} color={colors['primary']} />}
-      name={name}
-      secondary={fileSize(size)}
+      text={name}
+      secondaryText={fileSize(size)}
       onPress={handlePress}
       menu={
         <Menu renderer={renderers.SlideInMenu}>

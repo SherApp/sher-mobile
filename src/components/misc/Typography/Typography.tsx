@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import useTheme from '../../../theme/useTheme';
 
-interface Props extends TextProps {
+export interface TypographyProps extends TextProps {
   color?: 'text' | 'textSecondary' | 'primary' | 'button' | 'border' | 'error';
   variant?: 'h1' | 'body' | 'caption';
   style?: StyleProp<TextStyle>;
@@ -20,7 +20,7 @@ const Typography = ({
   style,
   children,
   ...rest
-}: React.PropsWithChildren<Props>) => {
+}: React.PropsWithChildren<TypographyProps>) => {
   const { colors } = useTheme();
   return (
     <Text
