@@ -18,6 +18,7 @@ import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import ListItem from '../../misc/ListItem';
 import { useApiClient } from '../../../api/useApiClient';
 import { useMutation, useQueryClient } from 'react-query';
+import * as Linking from 'expo-linking';
 
 interface Props {
   id: string;
@@ -37,6 +38,10 @@ const FileListItem = ({ id, name, size, link }: Props) => {
   });
 
   const { spacing, colors } = useTheme();
+
+  const handleDownloadSelect = async () => {
+    await Linking.openURL(link);
+  };
 
   const handlePress = async () => {
     const fileUri = FileSystem.cacheDirectory + name;
@@ -86,14 +91,11 @@ const FileListItem = ({ id, name, size, link }: Props) => {
           </MenuTrigger>
           <MenuOptions optionsContainerStyle={{ backgroundColor: colors.card }}>
             <ThemedMenuOption
-              text="Export"
+              text="Download"
               icon={
-                <Feather
-                  name="external-link"
-                  size={24}
-                  color={colors['text']}
-                />
+                <Feather name="download" size={24} color={colors['text']} />
               }
+              onSelect={handleDownloadSelect}
             />
             <ThemedMenuSeparator />
             <ThemedMenuOption
