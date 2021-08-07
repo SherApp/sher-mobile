@@ -16,14 +16,26 @@ import {
 import Clipboard from 'expo-clipboard';
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import ListItem from '../../misc/ListItem';
+import { useApiClient } from '../../../api/useApiClient';
+import { useMutation, useQueryClient } from 'react-query';
 
 interface Props {
+  id: string;
   name: string;
   size: number;
   link: string;
 }
 
-const FileListItem = ({ name, size, link }: Props) => {
+const FileListItem = ({ id, name, size, link }: Props) => {
+  const apiClient = useApiClient();
+  const queryClient = useQueryClient();
+
+  const deleteFileMutation = useMutation(() => apiClient.deleteFile(id), {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('listDirectory');
+    }
+  });
+
   const { spacing, colors } = useTheme();
 
   const handlePress = async () => {
@@ -47,6 +59,10 @@ const FileListItem = ({ name, size, link }: Props) => {
 
   const handleShareSelect = async () => {
     await Share.share({ message: link });
+  };
+
+  const handleDeleteSelect = async () => {
+    await deleteFileMutation.mutateAsync();
   };
 
   return (
@@ -91,6 +107,12 @@ const FileListItem = ({ name, size, link }: Props) => {
               text="Share link"
               icon={<Feather name="link" size={24} color={colors['text']} />}
               onSelect={handleShareSelect}
+            />
+            <ThemedMenuSeparator />
+            <ThemedMenuOption
+              text="Delete"
+              icon={<Feather name="trash-2" size={24} color={colors['text']} />}
+              onSelect={handleDeleteSelect}
             />
           </MenuOptions>
         </Menu>

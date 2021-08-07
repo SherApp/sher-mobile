@@ -33,6 +33,7 @@ const DirectoryContentsBrowser = ({
       renderItem={({ item }) =>
         'fileName' in item ? (
           <FileListItem
+            id={item.id}
             name={item.fileName}
             size={item.length}
             link={item.url}

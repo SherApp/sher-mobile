@@ -107,6 +107,11 @@ export class ApiClient {
     return new URL(config.api.endpoints.file(fileId), baseUrl).href;
   }
 
+  public async deleteFile(fileId: string) {
+    const client = await this.client();
+    await client.delete(config.api.endpoints.file(fileId));
+  }
+
   public async listDirectory(directoryId?: string) {
     const client = await this.client();
     const { data } = await client.get<Directory>(
