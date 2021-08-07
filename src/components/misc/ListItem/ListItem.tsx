@@ -12,13 +12,7 @@ interface Props {
   menu?: React.ReactNode;
 }
 
-const ListItem = ({
-  icon,
-  text,
-  secondaryText,
-  onPress,
-  menu = null
-}: Props) => {
+const ListItem = ({ icon, text, secondaryText, onPress, menu }: Props) => {
   const { spacing } = useTheme();
 
   const content = (
@@ -28,7 +22,7 @@ const ListItem = ({
       </View>
       <View style={{ marginLeft: spacing(2), flex: 1 }}>
         <Typography numberOfLines={1}>{text}</Typography>
-        {secondaryText && (
+        {typeof secondaryText === 'string' && (
           <Typography numberOfLines={1} color="textSecondary">
             {secondaryText}
           </Typography>
