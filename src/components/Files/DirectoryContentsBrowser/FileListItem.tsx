@@ -20,15 +20,17 @@ import { useApiClient } from '../../../api/useApiClient';
 import { useMutation, useQueryClient } from 'react-query';
 import * as Linking from 'expo-linking';
 import Toast from 'react-native-root-toast';
+import FileIcon from './FileIcon';
 
 interface Props {
   id: string;
   name: string;
+  contentType: string;
   size: number;
   link: string;
 }
 
-const FileListItem = ({ id, name, size, link }: Props) => {
+const FileListItem = ({ id, name, contentType, size, link }: Props) => {
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
 
@@ -87,7 +89,7 @@ const FileListItem = ({ id, name, size, link }: Props) => {
 
   return (
     <ListItem
-      icon={<Feather name="file" size={24} color={colors['primary']} />}
+      icon={<FileIcon contentType={contentType} />}
       text={name}
       secondaryText={fileSize(size)}
       onPress={handlePress}

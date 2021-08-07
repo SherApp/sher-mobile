@@ -35,6 +35,7 @@ const DirectoryContentsBrowser = ({
           <FileListItem
             id={item.id}
             name={item.fileName}
+            contentType={item.contentType}
             size={item.length}
             link={item.url}
           />
