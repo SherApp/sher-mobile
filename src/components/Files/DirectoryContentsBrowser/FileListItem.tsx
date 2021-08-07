@@ -19,6 +19,7 @@ import ListItem from '../../misc/ListItem';
 import { useApiClient } from '../../../api/useApiClient';
 import { useMutation, useQueryClient } from 'react-query';
 import * as Linking from 'expo-linking';
+import Toast from 'react-native-root-toast';
 
 interface Props {
   id: string;
@@ -48,11 +49,25 @@ const FileListItem = ({ id, name, size, link }: Props) => {
     const { headers } = await FileSystem.downloadAsync(link, fileUri);
 
     if (Platform.OS === 'android') {
-      await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-        data: await getContentUriAsync(fileUri),
-        flags: 1,
-        type: headers['Content-Type']
-      });
+      try {
+        await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+          data: await getContentUriAsync(fileUri),
+          flags: 1,
+          type: headers['Content-Type']
+        });
+      } catch (e) {
+        if (
+          e.message.includes(
+            'ExpoIntentLauncher: No Activity found to handle Intent'
+          )
+        ) {
+          Toast.show('No installed app can open this file', {
+            duration: Toast.durations.LONG
+          });
+        } else {
+          throw e;
+        }
+      }
     } else if (Platform.OS === 'ios') {
       // TODO: Support iOS
     }
