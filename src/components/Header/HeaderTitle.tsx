@@ -43,7 +43,7 @@ const HeaderTitle = ({ children }: StackHeaderTitleProps) => {
         </Defs>
       </Svg>
       <ExpoLinearGradient
-        colors={['transparent', colors.background]}
+        colors={['transparent', colors.card]}
         start={[0, 0]}
         end={[1, 0]}
         style={{ height: 50, width: 25, transform: [{ translateX: -25 }] }}

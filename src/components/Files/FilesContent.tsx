@@ -1,6 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import FilesBrowser from '../../components/Files/FilesBrowser';
 import { useNavigation } from '@react-navigation/native';
 import HomeHeaderRight from '../../components/Files/Header/HomeHeaderRight';
@@ -27,7 +26,6 @@ const FilesContent = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
       <FilesBrowser showSearch={showSearch} />
       <FilesFAB />
     </View>

@@ -4,7 +4,7 @@ import Typography from '../../misc/Typography';
 import React from 'react';
 import useTheme from '../../../theme/useTheme';
 
-interface Props {
+export interface ListItemProps {
   icon?: React.ReactNode;
   text?: string;
   secondaryText?: string;
@@ -12,7 +12,13 @@ interface Props {
   menu?: React.ReactNode;
 }
 
-const ListItem = ({ icon, text, secondaryText, onPress, menu }: Props) => {
+const ListItem = ({
+  icon,
+  text,
+  secondaryText,
+  onPress,
+  menu
+}: ListItemProps) => {
   const { spacing } = useTheme();
 
   const content = (
@@ -42,7 +48,6 @@ const ListItem = ({ icon, text, secondaryText, onPress, menu }: Props) => {
 const styles = StyleSheet.create({
   container: {
     height: 48,
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
   },

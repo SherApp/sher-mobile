@@ -1,9 +1,10 @@
-import { useColorScheme } from 'react-native-appearance';
 import { darkTheme, defaultTheme } from './themes';
+import { useThemeName } from './useThemeName';
 
 const useTheme = () => {
-  const colorScheme = useColorScheme();
-  if (colorScheme === 'dark') {
+  const scheme = useThemeName();
+
+  if (scheme === 'dark') {
     return darkTheme;
   } else {
     return defaultTheme;

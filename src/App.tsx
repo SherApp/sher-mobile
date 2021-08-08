@@ -1,22 +1,15 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import Login from './screens/Login';
-import { AppearanceProvider } from 'react-native-appearance';
 import { Sacramento_400Regular, useFonts } from '@expo-google-fonts/sacramento';
 import { Oswald_400Regular } from '@expo-google-fonts/oswald';
-import useTheme from './theme/useTheme';
-import { MenuProvider } from 'react-native-popup-menu';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { HeaderShadowProvider } from './components/Header/HeaderShadowContext';
 import { RootSiblingParent } from 'react-native-root-siblings';
-import Home from './screens/Home';
+import { ThemeSettingsProvider } from './theme/ThemeSettingsProvider';
+import ThemedApp from './theme/ThemedApp';
+import { AppearanceProvider } from 'react-native-appearance';
 
 const queryClient = new QueryClient();
-
-const Stack = createStackNavigator();
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -24,34 +17,17 @@ function App() {
     Oswald_400Regular
   });
 
-  const theme = useTheme();
-
   // TODO: Show a splashscreen
   if (!fontsLoaded) return null;
 
   return (
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
-        <AppearanceProvider>
-          <HeaderShadowProvider>
-            <MenuProvider
-              customStyles={{
-                backdrop: { backgroundColor: 'black', opacity: 0.5 }
-              }}
-            >
-              <NavigationContainer theme={theme}>
-                <Stack.Navigator
-                  screenOptions={{
-                    headerShown: false
-                  }}
-                >
-                  <Stack.Screen name="Home" component={Home} />
-                  <Stack.Screen name="Login" component={Login} />
-                </Stack.Navigator>
-              </NavigationContainer>
-            </MenuProvider>
-          </HeaderShadowProvider>
-        </AppearanceProvider>
+        <ThemeSettingsProvider>
+          <AppearanceProvider>
+            <ThemedApp />
+          </AppearanceProvider>
+        </ThemeSettingsProvider>
       </QueryClientProvider>
     </RootSiblingParent>
   );
