@@ -20,7 +20,7 @@ const FilesSearch = ({ value, onChange, visible }: Props) => {
 
   return (
     <Collapsible collapse={!visible} card elevated={visible && shadowVisible}>
-      <Surface p={[0, 2]}>
+      <Surface card p={[0, 2]}>
         <OutlinedTextField
           placeholder="Search"
           style={{ marginBottom: spacing(2) }}
