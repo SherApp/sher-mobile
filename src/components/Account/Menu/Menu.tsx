@@ -25,7 +25,7 @@ const Menu = () => {
         style={{ height: 0.5, flex: 1, backgroundColor: colors.textSecondary }}
       />
       <ListItem
-        icon={<Feather name="log-out" size={24} />}
+        icon={<Feather color={colors.text} name="log-out" size={24} />}
         onPress={handleSignOutPress}
         text="Sign out"
       />
