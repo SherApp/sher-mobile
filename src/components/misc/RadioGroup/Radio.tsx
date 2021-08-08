@@ -48,6 +48,7 @@ export const Radio = ({ label, selected, onPress, style }: Props) => {
   );
 };
 
+const wrapperBorderWidth = 2;
 const wrapperDiameter = 20;
 const dotDiameter = 12;
 
@@ -60,15 +61,15 @@ const styles = StyleSheet.create({
     width: wrapperDiameter,
     height: wrapperDiameter,
     borderRadius: 999,
-    borderWidth: 1,
+    borderWidth: wrapperBorderWidth,
     position: 'relative'
   },
   dot: {
     width: dotDiameter,
     height: dotDiameter,
     borderRadius: 999,
-    left: wrapperDiameter / 2 - dotDiameter / 2 - 1,
-    top: wrapperDiameter / 2 - dotDiameter / 2 - 1,
+    left: wrapperDiameter / 2 - dotDiameter / 2 - wrapperBorderWidth,
+    top: wrapperDiameter / 2 - dotDiameter / 2 - wrapperBorderWidth,
     position: 'absolute'
   }
 });
