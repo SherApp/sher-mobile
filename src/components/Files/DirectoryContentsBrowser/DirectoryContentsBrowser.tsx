@@ -25,7 +25,7 @@ const DirectoryContentsBrowser = ({
   onRefresh,
   refreshing
 }: Props) => {
-  const data = [...directories, ...files].filter((i) => !i.isDeleted);
+  const data = [...directories, ...files];
 
   return (
     <FlatList
