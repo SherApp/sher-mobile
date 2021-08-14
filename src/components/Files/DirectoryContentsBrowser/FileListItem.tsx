@@ -21,6 +21,7 @@ import * as Linking from 'expo-linking';
 import Toast from 'react-native-root-toast';
 import FileIcon from './FileIcon';
 import Icon from '../../misc/Icon';
+import { useConfirmationDialog } from '../../misc/ConfirmationDialog/ConfirmationDialogProvider';
 
 interface Props {
   id: string;
@@ -83,6 +84,8 @@ const FileListItem = ({ id, name, contentType, size, link }: Props) => {
     await Share.share({ message: link });
   };
 
+  const { withConfirmation } = useConfirmationDialog();
+
   const handleDeleteSelect = async () => {
     await deleteFileMutation.mutateAsync();
   };
@@ -122,7 +125,12 @@ const FileListItem = ({ id, name, contentType, size, link }: Props) => {
               text="Delete"
               icon="trash-2"
               color="error"
-              onSelect={handleDeleteSelect}
+              onSelect={withConfirmation!(handleDeleteSelect, {
+                title:
+                  'Are you sure want to delete this file? This cannot be undone.',
+                confirmText: 'Delete',
+                cancelText: 'Cancel'
+              })}
             />
           </MenuOptions>
         </Menu>

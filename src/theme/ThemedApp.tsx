@@ -8,6 +8,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { useThemeName } from './useThemeName';
+import ConfirmationDialogProvider from '../components/misc/ConfirmationDialog/ConfirmationDialogProvider';
 
 const Stack = createStackNavigator();
 
@@ -18,24 +19,26 @@ const ThemedApp = () => {
   return (
     <>
       <StatusBar style={themeName === 'dark' ? 'light' : 'dark'} />
-      <HeaderShadowProvider>
-        <MenuProvider
-          customStyles={{
-            backdrop: { backgroundColor: 'black', opacity: 0.5 }
-          }}
-        >
-          <NavigationContainer theme={theme}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false
-              }}
-            >
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={Login} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </MenuProvider>
-      </HeaderShadowProvider>
+      <ConfirmationDialogProvider>
+        <HeaderShadowProvider>
+          <MenuProvider
+            customStyles={{
+              backdrop: { backgroundColor: 'black', opacity: 0.5 }
+            }}
+          >
+            <NavigationContainer theme={theme}>
+              <Stack.Navigator
+                screenOptions={{
+                  headerShown: false
+                }}
+              >
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Login" component={Login} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </MenuProvider>
+        </HeaderShadowProvider>
+      </ConfirmationDialogProvider>
     </>
   );
 };

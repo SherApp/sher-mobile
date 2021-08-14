@@ -14,6 +14,7 @@ import { useApiClient } from '../../../api/useApiClient';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Icon from '../../misc/Icon';
+import { useConfirmationDialog } from '../../misc/ConfirmationDialog/ConfirmationDialogProvider';
 
 interface Props {
   id: string;
@@ -42,6 +43,8 @@ const DirectoryListItem = ({ id, name }: Props) => {
     });
   };
 
+  const { withConfirmation } = useConfirmationDialog();
+
   const { spacing, colors } = useTheme();
 
   return (
@@ -61,7 +64,12 @@ const DirectoryListItem = ({ id, name }: Props) => {
               color="error"
               text="Delete"
               icon="trash-2"
-              onSelect={handleDeleteSelect}
+              onSelect={withConfirmation!(handleDeleteSelect, {
+                title:
+                  'Are you sure want to delete this file? This cannot be undone.',
+                confirmText: 'Delete',
+                cancelText: 'Cancel'
+              })}
             />
             <ThemedMenuSeparator />
           </MenuOptions>
