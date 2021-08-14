@@ -2,8 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import More from '../More';
 import Files from '../Files';
-import { Feather } from '@expo/vector-icons';
 import Account from '../Account';
+import { Feather } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 

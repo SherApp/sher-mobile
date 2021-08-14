@@ -5,13 +5,13 @@ import {
   renderers
 } from 'react-native-popup-menu';
 import { StyleSheet, View } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import ThemedMenuOption from '../../misc/ThemedMenu/ThemedMenuOption';
 import { ThemedMenuSeparator } from '../../misc/ThemedMenu';
 import React, { useState } from 'react';
 import useTheme from '../../../theme/useTheme';
 import CreateFolderDialog from './CreateFolderDialog';
 import IconButton from '../../misc/IconButton';
+import Icon from '../../misc/Icon';
 
 interface Props {
   onSearchPress?(): void;
@@ -32,26 +32,18 @@ const HomeHeaderRight = ({ onSearchPress }: Props) => {
         visible={createFolderVisible}
       />
       <IconButton onPress={onSearchPress}>
-        <Feather name="search" size={24} color={colors.text} />
+        <Icon name="search" />
       </IconButton>
       <Menu renderer={renderers.SlideInMenu}>
         <MenuTrigger>
           <View style={{ padding: spacing(1) }}>
-            <Feather
-              name="more-vertical"
-              size={24}
-              style={{
-                color: colors['text']
-              }}
-            />
+            <Icon name="more-vertical" />
           </View>
         </MenuTrigger>
         <MenuOptions optionsContainerStyle={{ backgroundColor: colors.card }}>
           <ThemedMenuOption
             text="Create folder"
-            icon={
-              <Feather name="folder-plus" size={24} color={colors['text']} />
-            }
+            icon="folder-plus"
             onSelect={handleCreateFolderSelect}
           />
           <ThemedMenuSeparator />

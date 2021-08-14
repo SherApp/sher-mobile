@@ -3,13 +3,19 @@ import { StyleSheet, View } from 'react-native';
 import { MenuOption, MenuOptionProps } from 'react-native-popup-menu';
 import React from 'react';
 import Typography from '../Typography';
+import Icon from '../Icon';
+import { TypographyColor } from '../Typography/Typography';
 
 interface Props extends MenuOptionProps {
   text: string;
-  icon?: JSX.Element;
+  icon?: React.ComponentProps<typeof Icon>['name'];
+  color?: TypographyColor;
 }
 
-const ThemedMenuOption = ({ text, icon, style, ...rest }: Props, ref: any) => {
+const ThemedMenuOption = (
+  { text, icon, color, style, ...rest }: Props,
+  ref: any
+) => {
   const { colors, spacing } = useTheme();
 
   return (
@@ -25,8 +31,10 @@ const ThemedMenuOption = ({ text, icon, style, ...rest }: Props, ref: any) => {
       {...rest}
     >
       <View style={styles.container}>
-        <View style={{ marginRight: spacing(1.5) }}>{icon}</View>
-        <Typography>{text}</Typography>
+        <View style={{ marginRight: spacing(1.5) }}>
+          {icon && <Icon name={icon} color={color} />}
+        </View>
+        <Typography color={color}>{text}</Typography>
       </View>
     </MenuOption>
   );

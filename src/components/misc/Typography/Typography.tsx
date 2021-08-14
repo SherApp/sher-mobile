@@ -8,8 +8,16 @@ import {
 } from 'react-native';
 import useTheme from '../../../theme/useTheme';
 
+export type TypographyColor =
+  | 'text'
+  | 'textSecondary'
+  | 'primary'
+  | 'button'
+  | 'border'
+  | 'error';
+
 export interface TypographyProps extends TextProps {
-  color?: 'text' | 'textSecondary' | 'primary' | 'button' | 'border' | 'error';
+  color?: TypographyColor;
   variant?: 'h1' | 'body' | 'caption';
   style?: StyleProp<TextStyle>;
 }

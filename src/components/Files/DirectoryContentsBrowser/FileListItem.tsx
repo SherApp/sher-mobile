@@ -6,7 +6,6 @@ import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Platform } from 'react-native';
 import { getContentUriAsync } from 'expo-file-system';
-import { Feather } from '@expo/vector-icons';
 import {
   Menu,
   MenuOptions,
@@ -21,6 +20,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import * as Linking from 'expo-linking';
 import Toast from 'react-native-root-toast';
 import FileIcon from './FileIcon';
+import Icon from '../../misc/Icon';
 
 interface Props {
   id: string;
@@ -97,40 +97,31 @@ const FileListItem = ({ id, name, contentType, size, link }: Props) => {
         <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
             <View style={{ padding: spacing(1) }}>
-              <Feather
-                name="more-vertical"
-                size={24}
-                style={{
-                  color: colors['text']
-                }}
-              />
+              <Icon name="more-vertical" />
             </View>
           </MenuTrigger>
           <MenuOptions optionsContainerStyle={{ backgroundColor: colors.card }}>
             <ThemedMenuOption
               text="Download"
-              icon={
-                <Feather name="download" size={24} color={colors['text']} />
-              }
+              icon="download"
               onSelect={handleDownloadSelect}
             />
             <ThemedMenuSeparator />
             <ThemedMenuOption
               text="Copy link"
-              icon={
-                <Feather name="clipboard" size={24} color={colors['text']} />
-              }
+              icon="clipboard"
               onSelect={handleCopyToClipboardSelect}
             />
             <ThemedMenuOption
               text="Share link"
-              icon={<Feather name="link" size={24} color={colors['text']} />}
+              icon="link"
               onSelect={handleShareSelect}
             />
             <ThemedMenuSeparator />
             <ThemedMenuOption
               text="Delete"
-              icon={<Feather name="trash-2" size={24} color={colors['text']} />}
+              icon="trash-2"
+              color="error"
               onSelect={handleDeleteSelect}
             />
           </MenuOptions>

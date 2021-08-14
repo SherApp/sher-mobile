@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
-import useTheme from '../../../theme/useTheme';
 import { FileKind, getFileKindFromContentType } from '@sherapp/sher-shared';
+import Icon from '../../misc/Icon';
 
 interface Props {
   contentType: string;
@@ -23,9 +23,7 @@ const FileIcon = ({ contentType }: Props) => {
   const kind = getFileKindFromContentType(contentType);
   const icon = icons[kind];
 
-  const { colors } = useTheme();
-
-  return <Feather name={icon} size={24} color={colors['primary']} />;
+  return <Icon name={icon} color={'primary'} />;
 };
 
 export default FileIcon;

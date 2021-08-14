@@ -8,12 +8,12 @@ import {
   renderers
 } from 'react-native-popup-menu';
 import ThemedMenuOption, { ThemedMenuSeparator } from '../../misc/ThemedMenu';
-import { Feather } from '@expo/vector-icons';
 import ListItem from '../../misc/ListItem';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '../../../api/useApiClient';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Icon from '../../misc/Icon';
 
 interface Props {
   id: string;
@@ -46,26 +46,21 @@ const DirectoryListItem = ({ id, name }: Props) => {
 
   return (
     <ListItem
-      icon={<Feather name="folder" size={24} color={colors['primary']} />}
+      icon={<Icon name="folder" color="primary" />}
       text={name}
       onPress={handlePress}
       menu={
         <Menu renderer={renderers.SlideInMenu}>
           <MenuTrigger>
             <View style={{ padding: spacing(1) }}>
-              <Feather
-                name="more-vertical"
-                size={24}
-                style={{
-                  color: colors['text']
-                }}
-              />
+              <Icon name="more-vertical" />
             </View>
           </MenuTrigger>
           <MenuOptions optionsContainerStyle={{ backgroundColor: colors.card }}>
             <ThemedMenuOption
+              color="error"
               text="Delete"
-              icon={<Feather name="trash-2" size={24} color={colors['text']} />}
+              icon="trash-2"
               onSelect={handleDeleteSelect}
             />
             <ThemedMenuSeparator />

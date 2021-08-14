@@ -33,7 +33,7 @@ const FilesFAB = () => {
     <ActionButton
       buttonColor={colors.primary}
       onPress={handleMainPress}
-      renderIcon={() => <Feather name="upload-cloud" size={24} color="white" />}
+      renderIcon={() => <Feather size={24} name="upload-cloud" color="white" />}
       fixNativeFeedbackRadius
     />
   );
