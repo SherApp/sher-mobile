@@ -3,6 +3,7 @@ import Surface from '../../misc/Surface/Surface';
 import Typography from '../../misc/Typography';
 import React from 'react';
 import useTheme from '../../../theme/useTheme';
+import { TypographyProps } from '../Typography/Typography';
 
 export interface ListItemProps {
   icon?: React.ReactNode;
@@ -10,6 +11,7 @@ export interface ListItemProps {
   secondaryText?: string;
   onPress?(): void;
   menu?: React.ReactNode;
+  TypographyProps?: TypographyProps;
 }
 
 const ListItem = ({
@@ -17,7 +19,8 @@ const ListItem = ({
   text,
   secondaryText,
   onPress,
-  menu
+  menu,
+  TypographyProps
 }: ListItemProps) => {
   const { spacing } = useTheme();
 
@@ -27,7 +30,9 @@ const ListItem = ({
         {icon}
       </View>
       <View style={{ marginLeft: spacing(2), flex: 1 }}>
-        <Typography numberOfLines={1}>{text}</Typography>
+        <Typography numberOfLines={1} {...TypographyProps}>
+          {text}
+        </Typography>
         {typeof secondaryText === 'string' && (
           <Typography numberOfLines={1} color="textSecondary">
             {secondaryText}

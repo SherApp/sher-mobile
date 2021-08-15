@@ -6,6 +6,7 @@ import ListItem from '../../misc/ListItem';
 import { useApiClient } from '../../../api/useApiClient';
 import { useNavigation } from '@react-navigation/native';
 import Icon from '../../misc/Icon';
+import { useConfirmationDialog } from '../../misc/ConfirmationDialog/ConfirmationDialogProvider';
 
 const Menu = () => {
   const apiClient = useApiClient();
@@ -16,6 +17,8 @@ const Menu = () => {
     navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
   };
 
+  const { withConfirmation } = useConfirmationDialog();
+
   const { colors } = useTheme();
 
   return (
@@ -25,9 +28,14 @@ const Menu = () => {
         style={{ height: 0.5, flex: 1, backgroundColor: colors.textSecondary }}
       />
       <ListItem
-        icon={<Icon name="log-out" />}
-        onPress={handleSignOutPress}
+        icon={<Icon name="log-out" color="error" />}
+        onPress={withConfirmation!(handleSignOutPress, {
+          title: 'Are you sure you want to sign out?',
+          confirmText: 'Sign out',
+          cancelText: 'Cancel'
+        })}
         text="Sign out"
+        TypographyProps={{ color: 'error' }}
       />
     </ScrollView>
   );
