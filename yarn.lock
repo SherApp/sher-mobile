@@ -7864,6 +7864,11 @@ react-native-svg@12.1.0:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
 
+react-native-text-input-group@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-text-input-group/-/react-native-text-input-group-0.2.0.tgz#107b58e801e1896ea9d32d9a12c4f0f2c74ea5e5"
+  integrity sha512-8I4vhEyb5ECSuTIUwg0j9iISyouIrtkLYkr5dNpB6frf0icqOm+l0sc5YC80WZQI/a6ABWxx3bQmt8c18iJ42A==
+
 react-native-web@~0.13.12:
   version "0.13.18"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.13.18.tgz#964f058a16521a3b9a31b091415edfef5b6ef305"

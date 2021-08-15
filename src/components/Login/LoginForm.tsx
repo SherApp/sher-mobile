@@ -1,7 +1,7 @@
 import Typography from '../misc/Typography';
 import { Formik } from 'formik';
 import { StyleSheet, View } from 'react-native';
-import TextFieldGroup from '../misc/TextFieldGroup';
+import TextFieldGroup from 'react-native-text-input-group';
 import TextField from '../misc/TextField/TextField';
 import UserIcon from '../../../assets/svg/UserIcon';
 import PasswordIcon from '../../../assets/svg/PasswordIcon';
