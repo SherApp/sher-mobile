@@ -3,14 +3,12 @@ import { Formik } from 'formik';
 import { StyleSheet, View } from 'react-native';
 import TextFieldGroup from 'react-native-text-input-group';
 import TextField from '../misc/TextField/TextField';
-import UserIcon from '../../../assets/svg/UserIcon';
-import PasswordIcon from '../../../assets/svg/PasswordIcon';
-import GlobeIcon from '../../../assets/svg/GlobeIcon';
 import Button from '../misc/Button';
 import React from 'react';
 import useTheme from '../../theme/useTheme';
 import Surface from '../misc/Surface';
 import * as yup from 'yup';
+import Icon from '../misc/Icon';
 
 const loginSchema = yup.object().shape({
   emailAddress: yup
@@ -64,7 +62,7 @@ const LoginForm = ({ onSubmit }: Props) => {
                 autoCompleteType="email"
                 autoCapitalize="none"
                 onChangeText={handleChange('emailAddress')}
-                icon={<UserIcon />}
+                icon={<Icon name="mail" color="primary" />}
               />
               <TextField
                 label="Password"
@@ -72,7 +70,7 @@ const LoginForm = ({ onSubmit }: Props) => {
                 secureTextEntry
                 autoCompleteType="password"
                 onChangeText={handleChange('password')}
-                icon={<PasswordIcon />}
+                icon={<Icon name="lock" color="primary" />}
               />
               <TextField
                 autoCompleteType="off"
@@ -81,7 +79,7 @@ const LoginForm = ({ onSubmit }: Props) => {
                 placeholder="https://sher.company.com"
                 autoCapitalize="none"
                 onChangeText={handleChange('instanceUrl')}
-                icon={<GlobeIcon />}
+                icon={<Icon name="globe" color="primary" />}
                 onBlur={() => setFieldTouched('instanceUrl')}
               />
             </TextFieldGroup>

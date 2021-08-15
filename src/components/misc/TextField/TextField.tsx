@@ -63,7 +63,9 @@ const TextField = (
           }}
           {...rest}
         />
-        <View style={styles.iconContainer}>{icon}</View>
+        <View style={[styles.iconContainer, { margin: spacing(0.5) }]}>
+          {icon}
+        </View>
       </View>
       <Animated.View style={[styles.border, { backgroundColor: color }]} />
       <Typography color="error" variant="body">
@@ -82,8 +84,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     aspectRatio: 1,
-    height: 32,
-    marginBottom: 4
+    height: 24
   }
 });
 
