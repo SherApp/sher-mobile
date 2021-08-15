@@ -66,7 +66,7 @@ const DirectoryListItem = ({ id, name }: Props) => {
               icon="trash-2"
               onSelect={withConfirmation!(handleDeleteSelect, {
                 title:
-                  'Are you sure want to delete this file? This cannot be undone.',
+                  'Are you sure you want to delete this file? This cannot be undone.',
                 confirmText: 'Delete',
                 cancelText: 'Cancel'
               })}

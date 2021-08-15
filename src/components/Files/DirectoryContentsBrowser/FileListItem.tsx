@@ -127,7 +127,7 @@ const FileListItem = ({ id, name, contentType, size, link }: Props) => {
               color="error"
               onSelect={withConfirmation!(handleDeleteSelect, {
                 title:
-                  'Are you sure want to delete this file? This cannot be undone.',
+                  'Are you sure you want to delete this file? This cannot be undone.',
                 confirmText: 'Delete',
                 cancelText: 'Cancel'
               })}
