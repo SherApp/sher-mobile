@@ -3,7 +3,7 @@
     "name": "Sher",
     "slug": "sher-mobile",
     "entryPoint": "./src/App.tsx",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "me.romanowski.sher",
-      "buildNumber": "1.0.0"
+      "buildNumber": "0.1.0"
     },
     "android": {
       "adaptiveIcon": {
